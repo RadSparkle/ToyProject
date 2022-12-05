@@ -3,13 +3,13 @@
 
 <mapper namespace="com.toyproject.api.contents.board.mapper.BoardMapper">
    <select id="getBoardList" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
-       SELECT bid
-            , b_seq
-            , title
-            , views
-            , cmt_count
-            , is_use
-            , reg_dt
+       SELECT bid AS bid
+            , b_seq AS bSeq
+            , title AS title
+            , views AS views
+            , cmt_count AS cmtCount
+            , is_use AS isUse
+            , reg_dt AS regDt
         FROM toy_cont.board
         WHERE bid = #{bid}
    </select>
