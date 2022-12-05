@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.toyproject.api.contents.board.mapper.BoardMapper">
-   <select id="getBoardList">
+   <select id="getBoardList" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
        SELECT bid
             , b_seq
             , title
@@ -11,5 +11,12 @@
             , is_use
             , reg_dt
         FROM toy_cont.board
+        WHERE bid = #{bid}
    </select>
+
+    <select id="getBoardCount" resultType="HashMap" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+        SELECT COUNT(*) AS boardCount
+        FROM toy_cont.board
+        WHERE bid = #{bid}
+    </select>
 </mapper>
