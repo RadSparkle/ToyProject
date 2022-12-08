@@ -10,4 +10,5 @@ public interface BoardService {
 
     void insertBoard(BoardDto.boardInfo boardDto);
 
+    HashMap getBoardInfo(int pid, int bid);
 }

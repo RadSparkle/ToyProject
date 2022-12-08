@@ -34,4 +34,12 @@ public class BoardController {
 
         return ResponseEntity.ok(boardDto);
     }
+
+    @GetMapping("/getBoardInfo/{bid}/{pid}")
+    public ResponseEntity<HashMap> getBoardInfo(@PathVariable int pid
+            , @PathVariable int bid) {
+        HashMap boardInfo = boardService.getBoardInfo(pid, bid);
+
+        return ResponseEntity.ok(boardInfo);
+    }
 }

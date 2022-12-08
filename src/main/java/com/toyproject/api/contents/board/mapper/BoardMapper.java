@@ -14,6 +14,7 @@ public interface BoardMapper {
 
     void insertBoardInfo(BoardDto.boardInfo boardDto);
 
+    HashMap getBoardInfo(int pid, int bid);
 
     void insertBoard(BoardDto.boardInfo boardDto);
 }

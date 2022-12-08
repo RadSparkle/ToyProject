@@ -33,4 +33,20 @@
         VALUES (#{bid}, #{title})
     </insert>
 
+    <select id="getBoardInfo" parameterType="Integer" resultType="HashMap">
+        SELECT pid
+             , bid
+             , uid
+             , nickname
+             , b_link
+             , img_link
+             , is_notice
+             , is_use
+             , reg_dt
+             , mod_dt
+             , b_contents
+        FROM toy_cont.board_info
+        WHERE pid = #{pid}
+          AND bid = #{bid}
+    </select>
 </mapper>

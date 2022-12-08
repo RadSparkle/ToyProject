@@ -34,4 +34,8 @@ public class BoardServiceImpl implements BoardService {
         boardMapper.insertBoardInfo(boardDto);
     }
 
+    @Override
+    public HashMap getBoardInfo(int pid, int bid) {
+        return boardMapper.getBoardInfo(pid, bid);
+    }
 }
