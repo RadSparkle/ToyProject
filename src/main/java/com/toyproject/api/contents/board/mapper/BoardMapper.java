@@ -11,4 +11,9 @@ public interface BoardMapper {
     List<BoardDto.boardList> getBoardList(int bid);
 
     HashMap getBoardCount(int bid);
+
+    void insertBoardInfo(BoardDto.boardInfo boardDto);
+
+
+    void insertBoard(BoardDto.boardInfo boardDto);
 }

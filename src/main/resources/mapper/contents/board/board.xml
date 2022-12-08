@@ -12,6 +12,7 @@
             , reg_dt AS regDt
         FROM toy_cont.board
         WHERE bid = #{bid}
+        ORDER BY b_seq ASC
    </select>
 
     <select id="getBoardCount" resultType="HashMap" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
@@ -19,4 +20,17 @@
         FROM toy_cont.board
         WHERE bid = #{bid}
     </select>
+
+    <insert id="insertBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        INSERT
+        INTO toy_cont.board_info (pid, bid, uid, nickname, b_link, img_link, is_notice, is_use, b_contents)
+        VALUES (#{pid}, #{bid}, #{uid}, #{nickname}, #{bLink}, #{imgLink}, #{isNotice}, #{isUse}, #{bContents})
+    </insert>
+
+    <insert id="insertBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        INSERT
+        INTO toy_cont.board (bid, title)
+        VALUES (#{bid}, #{title})
+    </insert>
+
 </mapper>

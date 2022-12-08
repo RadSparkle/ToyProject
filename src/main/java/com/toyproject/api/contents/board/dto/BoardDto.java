@@ -16,4 +16,20 @@ public class BoardDto {
         private String regDt;
         private int boardCount;
     }
+
+    @Data
+    public static class boardInfo {
+        private int pid;
+        private int bid;
+        private int uid;
+        private String title;
+        private String nickname;
+        private String bLink;
+        private String imgLink;
+        private int isUse;
+        private int isNotice;
+        private String regDt;
+        private String modDt;
+        private String bContents;
+    }
 }
