@@ -17,8 +17,7 @@
        LEFT OUTER JOIN (SELECT bid, contents FROM toy_cont.board_info WHERE bid = #{bid}) c ON a.pid = c.pid
        WHERE a.bid = #{bid}
          AND is_use = 1
-       ORDER BY reg_dt DESC
-        AND a.pid ASC
+       ORDER BY a.pid ASC
    </select>
 
     <select id="getBoardCount" resultType="HashMap" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
