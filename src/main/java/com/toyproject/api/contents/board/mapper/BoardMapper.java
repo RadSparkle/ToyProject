@@ -17,4 +17,8 @@ public interface BoardMapper {
     void insertBoardInfo(BoardDto.boardInfo boardDto);
 
     void insertBoard(BoardDto.boardInfo boardDto);
+
+    void deleteBoard(BoardDto.boardInfo boardInfo);
+
+    void deleteBoardInfo(BoardDto.boardInfo boardInfo);
 }

@@ -44,4 +44,11 @@ public class BoardController {
 
         return ResponseEntity.ok(boardInfo);
     }
+
+    @DeleteMapping("/deleteBoard")
+    public ResponseEntity<Object> deleteBoard(@RequestBody BoardDto.boardInfo boardInfo) {
+        boardService.deleteBoardInfo(boardInfo);
+
+        return ResponseEntity.ok(boardInfo);
+    }
 }

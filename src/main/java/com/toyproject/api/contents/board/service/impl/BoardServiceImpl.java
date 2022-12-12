@@ -38,4 +38,10 @@ public class BoardServiceImpl implements BoardService {
     public BoardDto.boardInfo getBoardInfo(int pid, int bid) {
         return boardMapper.getBoardInfo(pid, bid);
     }
+
+    @Override
+    public void deleteBoardInfo(BoardDto.boardInfo boardInfo) {
+        boardMapper.deleteBoard(boardInfo);
+        boardMapper.deleteBoardInfo(boardInfo);
+    }
 }

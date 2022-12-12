@@ -16,6 +16,7 @@
        LEFT OUTER JOIN (SELECT bid,b_type,board_name from toy_cont.board_group) b ON a.bid = b.bid
        LEFT OUTER JOIN (SELECT bid, contents FROM toy_cont.board_info) c ON a.bid = c.bid
        WHERE a.bid = #{bid}
+         AND is_use = 1
        ORDER BY a.pid ASC
    </select>
 
@@ -23,6 +24,7 @@
         SELECT COUNT(*) AS boardCount
         FROM toy_cont.board
         WHERE bid = #{bid}
+          AND is_use = 1
     </select>
 
     <insert id="insertBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
@@ -59,5 +61,22 @@
         FROM toy_cont.board_info
         WHERE pid = #{pid}
           AND bid = #{bid}
+          AND is_use = 1
     </select>
+
+    <update id="deleteBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        UPDATE toy_cont.board
+        SET is_use = 0
+        WHERE bid = #{bid}
+          AND pid = #{pid}
+          AND uid = #{uid}
+    </update>
+
+    <update id="deleteBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        UPDATE toy_cont.board_info
+        SET is_use = 0
+        WHERE bid = #{bid}
+          AND pid = #{pid}
+          AND uid = #{uid}
+    </update>
 </mapper>

@@ -11,4 +11,6 @@ public interface BoardService {
     void insertBoard(BoardDto.boardInfo boardDto);
 
     BoardDto.boardInfo getBoardInfo(int pid, int bid);
+
+    void deleteBoardInfo(BoardDto.boardInfo boardInfo);
 }
