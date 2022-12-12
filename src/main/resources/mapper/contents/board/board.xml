@@ -14,7 +14,7 @@
             , c.contents AS contents
        FROM toy_cont.board a
        LEFT OUTER JOIN (SELECT bid,b_type,board_name from toy_cont.board_group WHERE bid = #{bid}) b ON a.bid = b.bid
-       LEFT OUTER JOIN (SELECT bid, contents FROM toy_cont.board_info WHERE bid = #{bid}) c ON a.pid = c.pid
+       LEFT OUTER JOIN (SELECT bid, contents, pid FROM toy_cont.board_info WHERE bid = #{bid}) c ON a.pid = c.pid
        WHERE a.bid = #{bid}
          AND is_use = 1
        ORDER BY a.pid ASC
