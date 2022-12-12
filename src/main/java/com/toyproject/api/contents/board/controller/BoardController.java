@@ -15,13 +15,13 @@ import java.util.HashMap;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/board")
 public class BoardController {
 
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/getBoardList/{bid}")
+    @GetMapping("/getBoard/{bid}")
     public ResponseEntity<Object> getBoardList(@PathVariable int bid) {
         HashMap boardList = boardService.getBoardList(bid);
 
@@ -31,13 +31,12 @@ public class BoardController {
     @Transactional
     @PostMapping("/insertBoard")
     public ResponseEntity<Object> insertBoard(@RequestBody BoardDto.boardInfo boardDto) {
-        System.out.println(boardDto);
         boardService.insertBoard(boardDto);
 
         return ResponseEntity.ok(boardDto);
     }
 
-    @GetMapping("/getBoardInfo/{bid}/{pid}")
+    @GetMapping("/getBoard/{bid}/{pid}")
     public ResponseEntity<Object> getBoardInfo(@PathVariable int pid
             , @PathVariable int bid) {
         BoardDto.boardInfo boardInfo = boardService.getBoardInfo(pid, bid);
