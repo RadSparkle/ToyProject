@@ -11,8 +11,10 @@
             , a.is_use AS isUse
             , a.reg_dt AS regDt
             , b.board_name AS boardName
+            , c.contents AS contents
        FROM toy_cont.board a
        LEFT OUTER JOIN (SELECT bid,b_type,board_name from toy_cont.board_group) b ON a.bid = b.bid
+       LEFT OUTER JOIN (SELECT bid, contents FROM toy_cont.board_info) c ON a.bid = c.bid
        WHERE a.bid = #{bid}
        ORDER BY a.pid ASC
    </select>
@@ -25,11 +27,11 @@
 
     <insert id="insertBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
         <selectKey keyProperty="pid" resultType="Integer" order="BEFORE">
-            SELECT IFNULL(MAX(pid)+1,1) AS pid
+            SELECT IFNULL(MAX(pid)+1, 1) AS pid
             FROM toy_cont.board_info WHERE bid = #{bid}
         </selectKey>
-        INSERT INTO toy_cont.board_info (bid, uid, nickname, b_link, img_link, is_notice, is_use, b_contents, pid)
-        VALUES (#{bid}, #{uid}, #{nickname}, #{bLink}, #{imgLink}, #{isNotice}, #{isUse}, #{bContents}, #{pid})
+        INSERT INTO toy_cont.board_info (bid, uid, nickname, b_link, img_link, is_notice, is_use, pid, title, contents)
+        VALUES (#{bid}, #{uid}, #{nickname}, #{bLink}, #{imgLink}, #{isNotice}, #{isUse}, #{pid}, #{title}, #{contents})
     </insert>
 
     <insert id="insertBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
@@ -41,18 +43,19 @@
         VALUES (#{bid}, #{title}, #{uid}, #{pid})
     </insert>
 
-    <select id="getBoardInfo" parameterType="Integer" resultType="HashMap">
-        SELECT pid
-             , bid
-             , uid
-             , nickname
-             , b_link
-             , img_link
-             , is_notice
-             , is_use
-             , reg_dt
-             , mod_dt
-             , b_contents
+    <select id="getBoardInfo" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        SELECT pid AS pid
+             , bid AS bid
+             , uid AS uid
+             , title AS title
+             , nickname AS nickname
+             , b_link AS bLink
+             , img_link AS imgLink
+             , is_notice AS isNotice
+             , is_use AS isUse
+             , reg_dt AS regDt
+             , mod_dt AS modDt
+             , contents AS contents
         FROM toy_cont.board_info
         WHERE pid = #{pid}
           AND bid = #{bid}

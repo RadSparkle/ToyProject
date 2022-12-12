@@ -14,6 +14,7 @@ public class BoardDto {
         private int cmtCount;
         private int isUse;
         private String regDt;
+        private String contents;
         private String boardName;
     }
 
@@ -30,7 +31,7 @@ public class BoardDto {
         private int isNotice;
         private String regDt;
         private String modDt;
-        private String bContents;
+        private String contents;
         private String boardName;
     }
 }
