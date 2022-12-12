@@ -19,8 +19,6 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    private BoardDto boardDto;
-
     @GetMapping("/getBoardList")
     public ResponseEntity<Object> getBoardList(@RequestParam int bid) {
         HashMap boardList = boardService.getBoardList(bid);

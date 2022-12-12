@@ -3,16 +3,18 @@
 
 <mapper namespace="com.toyproject.api.contents.board.mapper.BoardMapper">
    <select id="getBoardList" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
-       SELECT bid AS bid
-            , b_seq AS bSeq
-            , title AS title
-            , views AS views
-            , cmt_count AS cmtCount
-            , is_use AS isUse
-            , reg_dt AS regDt
-        FROM toy_cont.board
-        WHERE bid = #{bid}
-        ORDER BY b_seq ASC
+       SELECT a.bid AS bid
+            , a.pid AS pid
+            , a.title AS title
+            , a.views AS views
+            , a.cmt_count AS cmtCount
+            , a.is_use AS isUse
+            , a.reg_dt AS regDt
+            , b.board_name AS boardName
+       FROM toy_cont.board a
+       LEFT OUTER JOIN (SELECT bid,b_type,board_name from toy_cont.board_group) b ON a.bid = b.bid
+       WHERE a.bid = #{bid}
+       ORDER BY a.pid ASC
    </select>
 
     <select id="getBoardCount" resultType="HashMap" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
@@ -21,16 +23,22 @@
         WHERE bid = #{bid}
     </select>
 
-    <insert id="insertBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
-        INSERT
-        INTO toy_cont.board_info (pid, bid, uid, nickname, b_link, img_link, is_notice, is_use, b_contents)
-        VALUES (#{pid}, #{bid}, #{uid}, #{nickname}, #{bLink}, #{imgLink}, #{isNotice}, #{isUse}, #{bContents})
+    <insert id="insertBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        <selectKey keyProperty="pid" resultType="Integer" order="BEFORE">
+            SELECT IFNULL(MAX(pid)+1,1) AS pid
+            FROM toy_cont.board_info WHERE bid = #{bid}
+        </selectKey>
+        INSERT INTO toy_cont.board_info (bid, uid, nickname, b_link, img_link, is_notice, is_use, b_contents, pid)
+        VALUES (#{bid}, #{uid}, #{nickname}, #{bLink}, #{imgLink}, #{isNotice}, #{isUse}, #{bContents}, #{pid})
     </insert>
 
-    <insert id="insertBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
-        INSERT
-        INTO toy_cont.board (bid, title)
-        VALUES (#{bid}, #{title})
+    <insert id="insertBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+            <selectKey keyProperty="pid" resultType="Integer" order="BEFORE">
+                SELECT IFNULL(MAX(pid)+1,1) AS pid
+                FROM toy_cont.board WHERE bid = #{bid}
+            </selectKey>
+        INSERT INTO toy_cont.board (bid, title, uid, pid)
+        VALUES (#{bid}, #{title}, #{uid}, #{pid})
     </insert>
 
     <select id="getBoardInfo" parameterType="Integer" resultType="HashMap">

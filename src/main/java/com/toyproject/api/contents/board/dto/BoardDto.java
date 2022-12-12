@@ -7,14 +7,14 @@ public class BoardDto {
 
     @Data
     public static class boardList {
+        private int pid;
         private int bid;
-        private int bSeq;
         private String title;
         private int views;
         private int cmtCount;
         private int isUse;
         private String regDt;
-        private int boardCount;
+        private String boardName;
     }
 
     @Data
@@ -31,5 +31,6 @@ public class BoardDto {
         private String regDt;
         private String modDt;
         private String bContents;
+        private String boardName;
     }
 }

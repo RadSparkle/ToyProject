@@ -12,9 +12,9 @@ public interface BoardMapper {
 
     HashMap getBoardCount(int bid);
 
-    void insertBoardInfo(BoardDto.boardInfo boardDto);
-
     HashMap getBoardInfo(int pid, int bid);
+
+    void insertBoardInfo(BoardDto.boardInfo boardDto);
 
     void insertBoard(BoardDto.boardInfo boardDto);
 }
