@@ -5,19 +5,19 @@
    <insert id="insertUser" parameterType="com.toyproject.api.auth.user.dto.UserDto$signUp">
        INSERT INTO toy_cont.users (user_id, pwd, nickname, gender, birthday, access_tp, location_yn, user_type)
         VALUES (#{userId}, #{pwd}, #{nickname}, #{gender}, #{birthday}, #{accessTp}, #{locationYn}, #{userType})
-        <selectKey keyProperty="signUpResult" resultType="com.toyproject.api.auth.user.dto.UserDto$signUp" order="AFTER">
-            SELECT uid
-                 , user_id
-                 , pwd
-                 , nickname
-                 , gender
-                 , birthday
-                 , access_tp
-                 , location_yn
-                 , user_type
-            FROM toy_cont.users
-            WHERE user_id = #{userId}
-             AND user_type = #{userType}
-        </selectKey>
+<!--        <selectKey keyProperty="signUpResult" resultType="com.toyproject.api.auth.user.dto.UserDto$signUp" order="AFTER">-->
+<!--            SELECT uid-->
+<!--                 , user_id-->
+<!--                 , pwd-->
+<!--                 , nickname-->
+<!--                 , gender-->
+<!--                 , birthday-->
+<!--                 , access_tp-->
+<!--                 , location_yn-->
+<!--                 , user_type-->
+<!--            FROM toy_cont.users-->
+<!--            WHERE user_id = #{userId}-->
+<!--             AND user_type = #{userType}-->
+<!--        </selectKey>-->
    </insert>
 </mapper>
