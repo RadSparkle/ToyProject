@@ -32,6 +32,12 @@ public class DefaultResponse<T> {
         return new DefaultResponse<T>(status, message, 0L, new ArrayList<>());
     }
 
+    public static<T> DefaultResponse<T> from(final Integer status, final String message, final T data) {
+        List<T> dataList = new ArrayList<>();
+        dataList.add(data);
+        return new DefaultResponse<T>(status, message, Long.parseLong(String.valueOf(dataList.size())), dataList);
+    }
+
     public ResponseEntity<Object> build() {
         return ResponseEntity
                 .status(status)
