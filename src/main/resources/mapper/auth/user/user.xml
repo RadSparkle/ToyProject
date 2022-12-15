@@ -20,4 +20,20 @@
 <!--             AND user_type = #{userType}-->
 <!--        </selectKey>-->
    </insert>
+
+    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.UserDto$signIn" resultType="com.toyproject.api.auth.user.dto.UserDto$signIn">
+        SELECT user_id AS userId
+             , pwd AS pwd
+             , nickname AS nickname
+             , gender AS gender
+             , birthday AS birthday
+             , access_tp AS accessTp
+             , location_yn AS locationYn
+             , user_type AS userType
+             , uid AS uid
+        FROM toy_cont.users
+        WHERE user_id = #{userId}
+         AND pwd = #{pwd}
+         AND access_tp = #{accessTp}
+    </select>
 </mapper>

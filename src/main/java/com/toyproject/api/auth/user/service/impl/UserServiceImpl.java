@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
 
        userMapper.insertUser(user);
     }
+
+    @Override
+    public UserDto.signIn getUser(UserDto.signIn user) {
+        return userMapper.getUser(user);
+    }
 }

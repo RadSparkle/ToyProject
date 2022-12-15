@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UserService {
     void insertUser(UserDto.signUp user);
+
+    UserDto.signIn getUser(UserDto.signIn user);
 }
