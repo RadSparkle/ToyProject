@@ -1,5 +1,6 @@
 package com.toyproject.api.contents.board.controller;
 
+import com.toyproject.api.common.DefaultResponse;
 import com.toyproject.api.contents.board.dto.BoardDto;
 import com.toyproject.api.contents.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +28,8 @@ public class BoardController {
     public ResponseEntity<Object> getBoardList(@PathVariable int bid) {
         HashMap boardList = boardService.getBoardList(bid);
 
-        return ResponseEntity.ok(boardList);
+        return DefaultResponse.from(OK.value(),"게시글 리스트 조회 성공", boardList).build();
+
     }
 
     @Transactional
@@ -33,7 +37,7 @@ public class BoardController {
     public ResponseEntity<Object> insertBoard(@RequestBody BoardDto.boardInfo boardDto) {
         boardService.insertBoard(boardDto);
 
-        return ResponseEntity.ok(boardDto);
+        return DefaultResponse.from(CREATED.value(),"게시글 생성 성공", boardDto).build();
     }
 
     @GetMapping("/getBoard/{bid}/{pid}")
@@ -41,13 +45,13 @@ public class BoardController {
             , @PathVariable int bid) {
         BoardDto.boardInfo boardInfo = boardService.getBoardInfo(pid, bid);
 
-        return ResponseEntity.ok(boardInfo);
+        return DefaultResponse.from(OK.value(),"게시글 상세 조회 성공", boardInfo).build();
     }
 
     @DeleteMapping("/deleteBoard")
     public ResponseEntity<Object> deleteBoard(@RequestBody BoardDto.boardInfo boardInfo) {
         boardService.deleteBoardInfo(boardInfo);
 
-        return ResponseEntity.ok(boardInfo);
+        return DefaultResponse.from(OK.value(),"게시글 삭제 성공", boardInfo).build();
     }
 }
