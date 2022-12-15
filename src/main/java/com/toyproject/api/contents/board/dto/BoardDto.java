@@ -16,6 +16,7 @@ public class BoardDto {
         private String regDt;
         private String contents;
         private String boardName;
+        private int likeCount;
     }
 
     @Data
