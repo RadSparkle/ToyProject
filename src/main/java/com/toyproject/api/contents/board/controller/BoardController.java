@@ -29,7 +29,6 @@ public class BoardController {
         HashMap boardList = boardService.getBoardList(bid);
 
         return DefaultResponse.from(OK.value(),"게시글 리스트 조회 성공", boardList).build();
-
     }
 
     @Transactional
@@ -44,6 +43,10 @@ public class BoardController {
     public ResponseEntity<Object> getBoardInfo(@PathVariable int pid
             , @PathVariable int bid) {
         BoardDto.boardInfo boardInfo = boardService.getBoardInfo(pid, bid);
+
+        if(boardInfo == null) {
+            return DefaultResponse.from(NOT_FOUND.value(),"존재하지않는 게시글 입니다.",boardInfo).build();
+        }
 
         return DefaultResponse.from(OK.value(),"게시글 상세 조회 성공", boardInfo).build();
     }
