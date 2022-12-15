@@ -79,4 +79,16 @@
           AND pid = #{pid}
           AND uid = #{uid}
     </update>
+
+    <insert id="insertLike" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardLike">
+        INSERT INTO toy_cont.board_like (uid, pid, bid)
+        VALUES (#{uid}, #{pid}, #{bid})
+    </insert>
+
+    <delete id="insertUnlike" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardLike">
+        DELETE FROM toy_cont.board_like
+        WHERE uid = #{uid}
+          AND pid = #{pid}
+          AND bid = #{bid}
+    </delete>
 </mapper>

@@ -13,4 +13,8 @@ public interface BoardService {
     BoardDto.boardInfo getBoardInfo(int pid, int bid);
 
     void deleteBoardInfo(BoardDto.boardInfo boardInfo);
+
+    void insertLike(BoardDto.boardLike boardInfo);
+
+    void insertUnlike(BoardDto.boardLike boardInfo);
 }

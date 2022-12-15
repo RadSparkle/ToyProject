@@ -44,4 +44,17 @@ public class BoardServiceImpl implements BoardService {
         boardMapper.deleteBoard(boardInfo);
         boardMapper.deleteBoardInfo(boardInfo);
     }
+
+    @Override
+    public void insertLike(BoardDto.boardLike boardInfo) {
+        System.out.println(boardInfo);
+        boardMapper.insertLike(boardInfo);
+    }
+
+    @Override
+    public void insertUnlike(BoardDto.boardLike boardInfo) {
+        boardMapper.insertUnlike(boardInfo);
+    }
+
+
 }

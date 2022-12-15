@@ -21,4 +21,8 @@ public interface BoardMapper {
     void deleteBoard(BoardDto.boardInfo boardInfo);
 
     void deleteBoardInfo(BoardDto.boardInfo boardInfo);
+
+    void insertLike(BoardDto.boardLike boardInfo);
+
+    void insertUnlike(BoardDto.boardLike boardInfo);
 }

@@ -6,7 +6,9 @@ import com.toyproject.api.contents.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.manager.DummyProxySession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +58,26 @@ public class BoardController {
         boardService.deleteBoardInfo(boardInfo);
 
         return DefaultResponse.from(OK.value(),"게시글 삭제 성공", boardInfo).build();
+    }
+
+    @PostMapping("/like")
+    public ResponseEntity<Object> likeBoard(@RequestBody BoardDto.boardLike boardInfo) {
+        int likeType = boardInfo.getLikeType();
+        try {
+            switch (likeType) {
+                case 1:
+                    boardService.insertLike(boardInfo);
+                    return DefaultResponse.from(OK.value(), "추천 성공", boardInfo).build();
+
+                case 0:
+                    boardService.insertUnlike(boardInfo);
+                    return DefaultResponse.from(OK.value(), "비추천 성공", boardInfo).build();
+
+                default:
+                    return DefaultResponse.from(BAD_REQUEST.value(), "likeType이 비정상적임", boardInfo).build();
+            }
+        } catch (DuplicateKeyException e) {
+            return DefaultResponse.from(BAD_REQUEST.value(), "이미 추천 또는 비추천을 하였습니다.",boardInfo).build();
+        }
     }
 }
