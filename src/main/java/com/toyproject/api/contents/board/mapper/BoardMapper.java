@@ -18,11 +18,19 @@ public interface BoardMapper {
 
     void insertBoard(BoardDto.boardInfo boardDto);
 
-    void deleteBoard(BoardDto.boardInfo boardInfo);
+    void deleteBoard(BoardDto.boardList boardInfo);
 
-    void deleteBoardInfo(BoardDto.boardInfo boardInfo);
+    void deleteBoardInfo(BoardDto.boardList boardInfo);
 
     void insertLike(BoardDto.boardLike boardInfo);
 
     void insertUnlike(BoardDto.boardLike boardInfo);
+
+    void updateBoard(BoardDto.boardInfo boardInfo);
+
+    void updateBoardInfo(BoardDto.boardInfo boardInfo);
+
+    void deleteBoardMulti(BoardDto.boardList boardInfo);
+
+    void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
 }

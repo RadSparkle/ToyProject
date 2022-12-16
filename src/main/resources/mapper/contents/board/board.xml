@@ -10,16 +10,17 @@
             , a.cmt_count AS cmtCount
             , a.is_use AS isUse
             , a.reg_dt AS regDt
+            , b.board_link AS boardLink
             , b.board_name AS boardName
             , c.contents AS contents
             , d.likeCount AS likeCount
        FROM toy_cont.board a
-       LEFT OUTER JOIN (SELECT bid,b_type,board_name from toy_cont.board_group WHERE bid = #{bid}) b ON a.bid = b.bid
+       LEFT OUTER JOIN (SELECT bid, b_type, board_name, board_link from toy_cont.board_group WHERE bid = #{bid}) b ON a.bid = b.bid
        LEFT OUTER JOIN (SELECT bid, contents, pid FROM toy_cont.board_info WHERE bid = #{bid}) c ON a.pid = c.pid
-       LEFT OUTER JOIN (SELECT DISTINCT(pid),COUNT(*) AS likeCount FROM toy_cont.board_like WHERE bid = #{bid} GROUP BY pid) d ON a.pid = d.pid
+       LEFT OUTER JOIN (SELECT DISTINCT(pid), COUNT(*) AS likeCount FROM toy_cont.board_like WHERE bid = #{bid} GROUP BY pid) d ON a.pid = d.pid
        WHERE a.bid = #{bid}
          AND is_use = 1
-       ORDER BY a.pid ASC
+       ORDER BY a.reg_dt DESC
    </select>
 
     <select id="getBoardCount" resultType="HashMap" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
@@ -48,38 +49,60 @@
     </insert>
 
     <select id="getBoardInfo" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
-        SELECT pid AS pid
-             , bid AS bid
-             , uid AS uid
-             , title AS title
-             , nickname AS nickname
-             , b_link AS bLink
-             , img_link AS imgLink
-             , is_notice AS isNotice
-             , is_use AS isUse
-             , reg_dt AS regDt
-             , mod_dt AS modDt
-             , contents AS contents
-        FROM toy_cont.board_info
-        WHERE pid = #{pid}
-          AND bid = #{bid}
-          AND is_use = 1
+        SELECT a.pid AS pid
+             , a.bid AS bid
+             , a.uid AS uid
+             , a.title AS title
+             , a.nickname AS nickname
+             , a.img_link AS imgLink
+             , a.is_notice AS isNotice
+             , a.is_use AS isUse
+             , a.reg_dt AS regDt
+             , a.mod_dt AS modDt
+             , a.contents AS contents
+             , b.board_link AS bLink
+             , b.board_name AS boardName
+        FROM toy_cont.board_info a
+        LEFT OUTER JOIN(SELECT bid, board_link, board_name FROM toy_cont.board_group WHERE bid = #{bid}) b ON a.bid = b.bid
+        WHERE a.pid = #{pid}
+          AND a.bid = #{bid}
+          AND a.is_use = 1
     </select>
 
-    <update id="deleteBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
-        UPDATE toy_cont.board
-        SET is_use = 0
-        WHERE bid = #{bid}
-          AND pid = #{pid}
-          AND uid = #{uid}
+    <update id="deleteBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+            UPDATE toy_cont.board
+            SET is_use = 0
+            WHERE bid = #{bid}
+            AND pid = #{pid}
+            AND uid = #{uid}
     </update>
 
-    <update id="deleteBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
-        UPDATE toy_cont.board_info
-        SET is_use = 0
-        WHERE bid = #{bid}
-          AND pid = #{pid}
-          AND uid = #{uid}
+    <update id="deleteBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+            UPDATE toy_cont.board_info
+            SET is_use = 0
+            WHERE bid = #{bid}
+            AND pid = #{pid}
+            AND uid = #{uid}
+    </update>
+
+    <update id="deleteBoardMulti" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+        <foreach collection="pidList" separator=";" item="item" >
+            UPDATE toy_cont.board
+            SET is_use = 0
+            WHERE bid = #{bid}
+            AND pid = #{item}
+            AND uid = #{uid}
+        </foreach>
+    </update>
+
+    <update id="deleteBoardInfoMulti" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+        <foreach collection="pidList" separator=";" item="item" >
+                UPDATE toy_cont.board_info
+                SET is_use = 0
+                WHERE bid = #{bid}
+                AND pid = #{item}
+                AND uid = #{uid}
+        </foreach>
     </update>
 
     <insert id="insertLike" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardLike">
@@ -93,4 +116,23 @@
           AND pid = #{pid}
           AND bid = #{bid}
     </delete>
+
+    <update id="updateBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        UPDATE toy_cont.board
+        SET title = #{title}
+          , mod_dt = now()
+        WHERE bid = #{bid}
+          AND pid = #{pid}
+          AND uid = #{uid}
+    </update>
+
+    <update id="updateBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+        UPDATE toy_cont.board_info
+        SET title = #{title}
+          , contents = #{contents}
+          , mod_dt = now()
+        WHERE bid = #{bid}
+          AND pid = #{pid}
+          AND uid = #{uid}
+    </update>
 </mapper>

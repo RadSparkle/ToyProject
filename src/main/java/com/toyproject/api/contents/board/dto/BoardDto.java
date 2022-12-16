@@ -3,6 +3,8 @@ package com.toyproject.api.contents.board.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 public class BoardDto {
 
     @Data
@@ -17,6 +19,8 @@ public class BoardDto {
         private String contents;
         private String boardName;
         private int likeCount;
+        private String boardLink;
+        private List pidList;
     }
 
     @Data

@@ -40,7 +40,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void deleteBoardInfo(BoardDto.boardInfo boardInfo) {
+    public void deleteBoardInfo(BoardDto.boardList boardInfo) {
+        System.out.println(boardInfo);
         boardMapper.deleteBoard(boardInfo);
         boardMapper.deleteBoardInfo(boardInfo);
     }
@@ -54,6 +55,18 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void insertUnlike(BoardDto.boardLike boardInfo) {
         boardMapper.insertUnlike(boardInfo);
+    }
+
+    @Override
+    public void updateBoard(BoardDto.boardInfo boardInfo) {
+        boardMapper.updateBoard(boardInfo);
+        boardMapper.updateBoardInfo(boardInfo);
+    }
+
+    @Override
+    public void deleteBoardInfoMulti(BoardDto.boardList boardInfo) {
+        boardMapper.deleteBoardMulti(boardInfo);
+        boardMapper.deleteBoardInfoMulti(boardInfo);
     }
 
 
