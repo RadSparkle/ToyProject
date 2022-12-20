@@ -37,11 +37,17 @@ public class UserController {
             userService.insertUser(user);
 
         } catch (DuplicateKeyException e) {
-            return DefaultResponse.from(BAD_REQUEST.value(),"아이디 중복", user).build();
-
+            return DefaultResponse.from(BAD_REQUEST.value(), "이메일 또는 닉네임 중복", user).build();
         }
         return DefaultResponse.from(CREATED.value(),"아이디 생성 성공", user).build();
     }
+
+//    @ApiOperation("회원가입 메일 인증")
+//    @PostMapping("/send-mail")
+//    public ResponseEntity<Object> sendMail (){
+//
+//
+//    }
 
     @ApiOperation("로그인")
     @GetMapping("/sign-in")
