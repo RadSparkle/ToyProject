@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.toyproject.api.user.mapper.UserMapper">
+    <select id = "getMyPage" parameterType="String" resultType="com.toyproject.api.user.dto.UserDto$myPageInfo">
+        SELECT uid AS uid
+             , user_id AS userId
+             , pwd AS pwd
+             , nickname AS nickname
+             , gender AS gender
+             , birthday AS birthday
+             , reg_dt AS regDt
+             , access_tp AS accessTp
+             , user_type AS userType
+        FROM toy_cont.users
+        WHERE uid = #{uid}
+    </select>
+
+    <select id="getMyBoardList" parameterType="String" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+        SELECT a.bid AS bid
+             , a.pid AS pid
+             , a.title AS title
+             , a.views AS views
+             , a.cmt_count AS cmtCount
+             , a.is_use AS isUse
+             , a.reg_dt AS regDt
+             , b.board_link AS boardLink
+             , b.board_name AS boardName
+             , c.contents AS contents
+             , d.likeCount AS likeCount
+        FROM toy_cont.board a
+        <if test='bid == "0"'>
+            LEFT OUTER JOIN (SELECT bid, b_type, board_name, board_link FROM toy_cont.board_group) b ON a.bid = b.bid
+            LEFT OUTER JOIN (SELECT bid, contents, pid FROM toy_cont.board_info) c ON a.pid = c.pid
+            LEFT OUTER JOIN (SELECT DISTINCT(pid), COUNT(*) AS likeCount FROM toy_cont.board_like GROUP BY pid) d ON a.pid = d.pid
+            WHERE uid = #{uid}
+            AND is_use = 1
+            ORDER BY a.reg_dt DESC
+        </if>
+        <if test='bid != "0"'>
+            LEFT OUTER JOIN (SELECT bid, b_type, board_name, board_link from toy_cont.board_group WHERE bid = #{bid} ) b ON a.bid = b.bid
+            LEFT OUTER JOIN (SELECT bid, contents, pid FROM toy_cont.board_info WHERE bid = #{bid}) c ON a.pid = c.pid
+            LEFT OUTER JOIN (SELECT DISTINCT(pid), COUNT(*) AS likeCount FROM toy_cont.board_like WHERE bid = #{bid} GROUP BY pid) d ON a.pid = d.pid
+            WHERE uid = #{uid}
+            AND a.bid = #{bid}
+            AND is_use = 1
+            ORDER BY a.reg_dt DESC
+        </if>
+    </select>
+</mapper>
