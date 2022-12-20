@@ -61,12 +61,12 @@ public class AuthController {
 
         AuthDto.signIn userInfo = authService.getUser(user);
         if(userInfo == null) {
-            return DefaultResponse.from(NOT_FOUND.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
+            return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
         }
 
-//        Cookie idCookie = new Cookie("uid", String.valueOf(userInfo.getUid()));
+        Cookie idCookie = new Cookie("uid", String.valueOf(userInfo.getUid()));
 
-//        response.addCookie(idCookie);
+        response.addCookie(idCookie);
 
         return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
     }
@@ -75,10 +75,10 @@ public class AuthController {
     @PostMapping("/sign-out")
     public ResponseEntity<Object> signOut (@CookieValue Cookie uid, HttpServletResponse response) {
         if(uid == null){
-            return DefaultResponse.from(NOT_FOUND.value(), "옳바르지 않은 요청입니다.", uid).build();
+            return DefaultResponse.from(BAD_REQUEST.value(), "옳바르지 않은 요청입니다.", uid).build();
         }
 
-//        expireCookie(response, uid);
+        expireCookie(response, uid);
 
         return DefaultResponse.from(OK.value(), "로그아웃 성공", uid).build();
     }
