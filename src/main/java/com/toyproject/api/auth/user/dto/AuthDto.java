@@ -2,7 +2,7 @@ package com.toyproject.api.auth.user.dto;
 
 import lombok.Data;
 
-public class UserDto {
+public class AuthDto {
 
     @Data
     public static class signUp{

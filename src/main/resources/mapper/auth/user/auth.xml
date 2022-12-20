@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.toyproject.api.auth.user.mapper.UserMapper">
-   <insert id="insertUser" parameterType="com.toyproject.api.auth.user.dto.UserDto$signUp">
+<mapper namespace="com.toyproject.api.auth.user.mapper.AuthMapper">
+   <insert id="insertUser" parameterType="com.toyproject.api.auth.user.dto.AuthDto$signUp">
        INSERT INTO toy_cont.users (user_id, pwd, nickname, gender, birthday, access_tp, location_yn, user_type)
         VALUES (#{userId}, #{pwd}, #{nickname}, #{gender}, #{birthday}, #{accessTp}, #{locationYn}, #{userType})
 <!--        <selectKey keyProperty="signUpResult" resultType="com.toyproject.api.auth.user.dto.UserDto$signUp" order="AFTER">-->
@@ -21,7 +21,7 @@
 <!--        </selectKey>-->
    </insert>
 
-    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.UserDto$signIn" resultType="com.toyproject.api.auth.user.dto.UserDto$signIn">
+    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.AuthDto$signIn" resultType="com.toyproject.api.auth.user.dto.AuthDto$signIn">
         SELECT user_id AS userId
              , pwd AS pwd
              , nickname AS nickname
