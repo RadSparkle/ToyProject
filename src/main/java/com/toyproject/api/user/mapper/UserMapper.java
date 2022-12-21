@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    UserDto.myPageInfo getMyPage(String uid);
+    UserDto.myPageInfo getMyPage(int uid);
 
-    List getMyBoardList(String uid);
+    List getMyBoardList(int uid);
 }

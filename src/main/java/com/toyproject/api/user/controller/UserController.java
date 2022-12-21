@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.util.HashMap;
 
@@ -23,8 +25,8 @@ public class UserController {
 
     @ApiOperation("마이페이지 조회")
     @GetMapping("/getMyPage")
-    public ResponseEntity<Object> getMyPage(@CookieValue(value="uid") Cookie uid) {
-        HashMap myPageInfo = userService.getMyPage(uid.getValue());
+    public ResponseEntity<Object> getMyPage(@RequestParam int uid) {
+        HashMap myPageInfo = userService.getMyPage(uid);
 
         return DefaultResponse.from(OK.value(),"마이페이지 조회 성공", myPageInfo).build();
     }

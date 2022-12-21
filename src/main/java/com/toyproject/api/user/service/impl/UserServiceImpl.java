@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public HashMap getMyPage(String uid) {
+    public HashMap getMyPage(int uid) {
         HashMap hm = new HashMap();
 
         UserDto.myPageInfo mypageInfo = userMapper.getMyPage(uid);

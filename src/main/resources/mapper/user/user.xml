@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.toyproject.api.user.mapper.UserMapper">
-    <select id = "getMyPage" parameterType="String" resultType="com.toyproject.api.user.dto.UserDto$myPageInfo">
+    <select id = "getMyPage" parameterType="Integer" resultType="com.toyproject.api.user.dto.UserDto$myPageInfo">
         SELECT uid AS uid
              , user_id AS userId
              , pwd AS pwd
@@ -16,7 +16,7 @@
         WHERE uid = #{uid}
     </select>
 
-    <select id="getMyBoardList" parameterType="String" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+    <select id="getMyBoardList" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
         SELECT a.bid AS bid
              , a.pid AS pid
              , a.title AS title
