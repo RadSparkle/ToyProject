@@ -29,22 +29,11 @@
              , c.contents AS contents
              , d.likeCount AS likeCount
         FROM toy_cont.board a
-        <if test='bid == "0"'>
             LEFT OUTER JOIN (SELECT bid, b_type, board_name, board_link FROM toy_cont.board_group) b ON a.bid = b.bid
             LEFT OUTER JOIN (SELECT bid, contents, pid FROM toy_cont.board_info) c ON a.pid = c.pid
             LEFT OUTER JOIN (SELECT DISTINCT(pid), COUNT(*) AS likeCount FROM toy_cont.board_like GROUP BY pid) d ON a.pid = d.pid
             WHERE uid = #{uid}
             AND is_use = 1
             ORDER BY a.reg_dt DESC
-        </if>
-        <if test='bid != "0"'>
-            LEFT OUTER JOIN (SELECT bid, b_type, board_name, board_link from toy_cont.board_group WHERE bid = #{bid} ) b ON a.bid = b.bid
-            LEFT OUTER JOIN (SELECT bid, contents, pid FROM toy_cont.board_info WHERE bid = #{bid}) c ON a.pid = c.pid
-            LEFT OUTER JOIN (SELECT DISTINCT(pid), COUNT(*) AS likeCount FROM toy_cont.board_like WHERE bid = #{bid} GROUP BY pid) d ON a.pid = d.pid
-            WHERE uid = #{uid}
-            AND a.bid = #{bid}
-            AND is_use = 1
-            ORDER BY a.reg_dt DESC
-        </if>
     </select>
 </mapper>

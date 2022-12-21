@@ -18,11 +18,11 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public HashMap getMyPage(String uid, int bid) {
+    public HashMap getMyPage(String uid) {
         HashMap hm = new HashMap();
 
         UserDto.myPageInfo mypageInfo = userMapper.getMyPage(uid);
-        List boardList = userMapper.getMyBoardList(uid, bid);
+        List boardList = userMapper.getMyBoardList(uid);
 
         hm.put("myInfo",mypageInfo);
         hm.put("myBoardList",boardList);

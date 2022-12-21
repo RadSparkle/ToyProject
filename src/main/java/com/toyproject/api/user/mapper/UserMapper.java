@@ -11,5 +11,5 @@ import java.util.List;
 public interface UserMapper {
     UserDto.myPageInfo getMyPage(String uid);
 
-    List getMyBoardList(String uid, int bid);
+    List getMyBoardList(String uid);
 }
