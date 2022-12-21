@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1/user")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
     @Autowired

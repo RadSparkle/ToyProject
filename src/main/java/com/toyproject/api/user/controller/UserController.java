@@ -1,9 +1,7 @@
 package com.toyproject.api.user.controller;
 
 import com.toyproject.api.common.DefaultResponse;
-import com.toyproject.api.user.dto.UserDto;
 import com.toyproject.api.user.service.UserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/v1/user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     @Autowired
@@ -24,9 +23,8 @@ public class UserController {
 
     @ApiOperation("마이페이지 조회")
     @GetMapping("/getMyPage")
-    public ResponseEntity<Object> getMyPage(@CookieValue(value="uid") Cookie uid, @RequestParam(required = false) int bid) {
-        System.out.println(bid);
-        HashMap myPageInfo = userService.getMyPage(uid.getValue(), bid);
+    public ResponseEntity<Object> getMyPage(@CookieValue(value="uid") Cookie uid) {
+        HashMap myPageInfo = userService.getMyPage(uid.getValue());
 
         return DefaultResponse.from(OK.value(),"마이페이지 조회 성공", myPageInfo).build();
     }
