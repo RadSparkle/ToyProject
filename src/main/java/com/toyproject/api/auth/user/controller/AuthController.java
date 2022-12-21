@@ -7,8 +7,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.tomcat.util.http.SameSiteCookies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,19 +56,16 @@ public class AuthController {
 
     @ApiOperation("로그인")
     @PostMapping("/sign-in")
-    public ResponseEntity<Object> signIn (@RequestBody AuthDto.signIn user, HttpServletResponse response) {
+    public ResponseEntity<Object> signIn (@RequestBody AuthDto.signIn user) {
         //입력한 비밀번호 암호화
         String encryPwd = DigestUtils.sha256Hex(user.getPwd());
         user.setPwd(encryPwd);
 
         AuthDto.signIn userInfo = authService.getUser(user);
+
         if(userInfo == null) {
             return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
         }
-
-        Cookie idCookie = new Cookie("uid", String.valueOf(userInfo.getUid()));
-
-        response.addCookie(idCookie);
 
         return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
     }
