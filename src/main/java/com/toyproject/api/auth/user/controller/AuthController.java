@@ -3,14 +3,13 @@ package com.toyproject.api.auth.user.controller;
 import com.toyproject.api.auth.user.dto.AuthDto;
 import com.toyproject.api.auth.user.service.AuthService;
 import com.toyproject.api.common.DefaultResponse;
+import com.toyproject.api.common.security.jwt.controller.JwtProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.tomcat.util.http.SameSiteCookies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @ApiOperation("회원가입")
     @PostMapping("/sign-up")
@@ -67,6 +69,7 @@ public class AuthController {
             return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
         }
 
+        userInfo.setAccessToken(jwtProvider.createToken(userInfo.getUserId()));
         return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
     }
 

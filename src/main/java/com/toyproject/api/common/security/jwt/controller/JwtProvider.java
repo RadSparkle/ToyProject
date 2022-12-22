@@ -1,4 +1,4 @@
-package com.toyproject.api.common.security;
+package com.toyproject.api.common.security.jwt.controller;
 
 
 import io.jsonwebtoken.Claims;
@@ -28,16 +28,16 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setIssuer("test")
+                .setIssuer("TEST")
                 .setIssuedAt(now)
                 .setExpiration(expiration)
-                .setSubject(userId)
-                .signWith(SignatureAlgorithm.ES256, Base64.getEncoder().encodeToString(secretKey.getBytes()))
+                .signWith(SignatureAlgorithm.HS256, secretKey.getBytes())
                 .compact();
     }
 
     public Claims parseJwtToken(String token) {
         token = BearerRemove(token);
+
         return Jwts.parser()
                 .setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes()))
                 .parseClaimsJws(token)
