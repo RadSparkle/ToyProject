@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AuthMapper {
     void insertUser(AuthDto.signUp user);
 
-    AuthDto.signIn getUser(AuthDto.signIn user);
+    AuthDto.signInInfo getUser(AuthDto.signIn user);
 }

@@ -3,7 +3,7 @@ package com.toyproject.api.auth.user.controller;
 import com.toyproject.api.auth.user.dto.AuthDto;
 import com.toyproject.api.auth.user.service.AuthService;
 import com.toyproject.api.common.DefaultResponse;
-import com.toyproject.api.common.security.jwt.controller.JwtProvider;
+import com.toyproject.api.auth.user.jwt.JwtProvider;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.http.HttpStatus.*;
@@ -63,26 +64,22 @@ public class AuthController {
         String encryPwd = DigestUtils.sha256Hex(user.getPwd());
         user.setPwd(encryPwd);
 
-        AuthDto.signIn userInfo = authService.getUser(user);
+        AuthDto.signInInfo userInfo = authService.getUser(user);
 
         if(userInfo == null) {
             return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
         }
 
         userInfo.setAccessToken(jwtProvider.createToken(userInfo.getUserId()));
+
         return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
     }
 
     @ApiOperation("로그아웃")
     @PostMapping("/sign-out")
-    public ResponseEntity<Object> signOut (@CookieValue Cookie uid, HttpServletResponse response) {
-        if(uid == null){
-            return DefaultResponse.from(BAD_REQUEST.value(), "옳바르지 않은 요청입니다.", uid).build();
-        }
-
-        expireCookie(response, uid);
-
-        return DefaultResponse.from(OK.value(), "로그아웃 성공", uid).build();
+    public ResponseEntity<Object> signOut () {
+        //JWT 로그아웃은 프론트에서 처리
+        return DefaultResponse.from(OK.value(), "로그아웃 성공").build();
     }
 
     private void expireCookie(HttpServletResponse response, Cookie uid) {

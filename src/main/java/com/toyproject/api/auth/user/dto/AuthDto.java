@@ -1,6 +1,6 @@
 package com.toyproject.api.auth.user.dto;
 
-import com.toyproject.api.common.security.jwt.dto.TokenInfo;
+import com.toyproject.api.auth.user.jwt.dto.TokenInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -32,5 +32,11 @@ public class AuthDto{
         private String accessTp;
         private int locationYn;
         private String userType;
+    }
+
+    @Data
+    public static class signInInfo  extends TokenInfo{
+        private int uid;
+        private String userId;
     }
 }

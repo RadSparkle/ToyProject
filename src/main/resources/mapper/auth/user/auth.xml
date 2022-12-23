@@ -21,16 +21,9 @@
 <!--        </selectKey>-->
    </insert>
 
-    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.AuthDto$signIn" resultType="com.toyproject.api.auth.user.dto.AuthDto$signIn">
-        SELECT user_id AS userId
-             , pwd AS pwd
-             , nickname AS nickname
-             , gender AS gender
-             , birthday AS birthday
-             , access_tp AS accessTp
-             , location_yn AS locationYn
-             , user_type AS userType
-             , uid AS uid
+    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.AuthDto$signIn" resultType="com.toyproject.api.auth.user.dto.AuthDto$signInInfo">
+        SELECT uid AS uid
+             , user_id AS userId
         FROM toy_cont.users
         WHERE user_id = #{userId}
          AND pwd = #{pwd}
