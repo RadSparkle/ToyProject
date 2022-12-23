@@ -20,6 +20,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1/board")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BoardController {
 
     @Autowired
@@ -108,5 +109,13 @@ public class BoardController {
         } catch (DuplicateKeyException e) {
             return DefaultResponse.from(BAD_REQUEST.value(), "이미 추천을 하였습니다.",boardInfo).build();
         }
+    }
+
+    @ApiOperation("댓글등록")
+    @PostMapping("/insertComment")
+    public ResponseEntity<Object> insertCmt(@RequestBody BoardDto.boardCmt boardCmt) {
+        boardService.insertCmt(boardCmt);
+
+        return DefaultResponse.from(OK.value(), "댓글 등록 완료", boardCmt).build();
     }
 }
