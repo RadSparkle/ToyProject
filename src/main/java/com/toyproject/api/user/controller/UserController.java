@@ -1,5 +1,6 @@
 package com.toyproject.api.user.controller;
 
+import com.toyproject.api.auth.user.jwt.AuthorizationToken;
 import com.toyproject.api.common.DefaultResponse;
 import com.toyproject.api.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -24,9 +25,11 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation("마이페이지 조회")
-    @GetMapping("/getMyPage")
-    public ResponseEntity<Object> getMyPage(@RequestParam int uid) {
+    @GetMapping("/getMyPage/{uid}")
+    public ResponseEntity<Object> getMyPage(@PathVariable int uid, HttpServletRequest request) {
         HashMap myPageInfo = userService.getMyPage(uid);
+
+        AuthorizationToken.of(request.getHeader(AuthorizationToken.HEADER_AUTH_KEY));
 
         return DefaultResponse.from(OK.value(),"마이페이지 조회 성공", myPageInfo).build();
     }
