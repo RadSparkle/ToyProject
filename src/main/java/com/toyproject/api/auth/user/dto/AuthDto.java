@@ -22,7 +22,7 @@ public class AuthDto{
     }
 
     @Data
-    public static class signIn  extends TokenInfo{
+    public static class signIn {
         private int uid;
         private String userId;
         private String pwd;

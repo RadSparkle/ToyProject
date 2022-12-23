@@ -23,4 +23,9 @@ public class AuthServiceImpl implements AuthService {
     public AuthDto.signInInfo getUser(AuthDto.signIn user) {
         return authMapper.getUser(user);
     }
+
+    @Override
+    public AuthDto.signIn getUserInfo(int uid) {
+        return authMapper.getUserInfo(uid);
+    }
 }

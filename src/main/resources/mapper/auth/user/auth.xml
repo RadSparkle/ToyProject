@@ -29,4 +29,18 @@
          AND pwd = #{pwd}
          AND access_tp = #{accessTp}
     </select>
+
+    <select id="getUserInfo" parameterType="Integer" resultType="com.toyproject.api.auth.user.dto.AuthDto$signIn">
+        SELECT uid AS uid
+            , user_id AS userId
+            , pwd AS pwd
+            , nickname AS nickname
+            , gender AS gender
+            , birthday AS birthday
+            , access_tp AS accessTp
+            , location_yn AS locationYn
+            , user_type AS userType
+        FROM toy_cont.users
+        WHERE uid = #{uid}
+    </select>
 </mapper>

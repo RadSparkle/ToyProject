@@ -6,4 +6,6 @@ public interface AuthService {
     void insertUser(AuthDto.signUp user);
 
     AuthDto.signInInfo getUser(AuthDto.signIn user);
+
+    AuthDto.signIn getUserInfo(int uid);
 }

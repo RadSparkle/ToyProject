@@ -1,6 +1,7 @@
 package com.toyproject.api.auth.user.controller;
 
 import com.toyproject.api.auth.user.dto.AuthDto;
+import com.toyproject.api.auth.user.jwt.AuthorizationToken;
 import com.toyproject.api.auth.user.service.AuthService;
 import com.toyproject.api.common.DefaultResponse;
 import com.toyproject.api.auth.user.jwt.JwtProvider;
@@ -73,6 +74,20 @@ public class AuthController {
         userInfo.setAccessToken(jwtProvider.createToken(userInfo.getUserId()));
 
         return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
+    }
+
+    @ApiOperation("회원 정보 조회")
+    @GetMapping("/getUserInfo/{uid}")
+    public ResponseEntity<Object> userInfo(@PathVariable int uid, HttpServletRequest request) {
+        AuthDto.signIn userInfo = authService.getUserInfo(uid);
+
+        if(userInfo == null) {
+            return DefaultResponse.from(BAD_REQUEST.value(), "잘못된 uid 입니다.",uid).build();
+        }
+
+        AuthorizationToken.of(request.getHeader(AuthorizationToken.HEADER_AUTH_KEY));
+
+        return DefaultResponse.from(OK.value(), "개인정보 조회 성공", userInfo).build();
     }
 
     @ApiOperation("로그아웃")
