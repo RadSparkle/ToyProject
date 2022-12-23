@@ -36,6 +36,7 @@ public class AuthController {
 
     @ApiOperation("회원가입")
     @PostMapping("/sign-up")
+    @CrossOrigin("*")
     public ResponseEntity<Object> signUp (@RequestBody AuthDto.signUp user) {
         //입력한 비밀번호 암호화
         String encryPwd = DigestUtils.sha256Hex(user.getPwd());
@@ -60,6 +61,7 @@ public class AuthController {
 
     @ApiOperation("로그인")
     @PostMapping("/sign-in")
+    @CrossOrigin("*")
     public ResponseEntity<Object> signIn (@RequestBody AuthDto.signIn user) {
         //입력한 비밀번호 암호화
         String encryPwd = DigestUtils.sha256Hex(user.getPwd());
@@ -78,6 +80,7 @@ public class AuthController {
 
     @ApiOperation("회원 정보 조회")
     @GetMapping("/getUserInfo/{uid}")
+    @CrossOrigin("*")
     public ResponseEntity<Object> userInfo(@PathVariable int uid, HttpServletRequest request) {
         AuthDto.signIn userInfo = authService.getUserInfo(uid);
 
@@ -92,6 +95,7 @@ public class AuthController {
 
     @ApiOperation("로그아웃")
     @PostMapping("/sign-out")
+    @CrossOrigin("*")
     public ResponseEntity<Object> signOut () {
         //JWT 로그아웃은 프론트에서 처리
         return DefaultResponse.from(OK.value(), "로그아웃 성공").build();
