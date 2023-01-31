@@ -58,7 +58,7 @@ pipeline {
                                 echo "set File ${env.warfile}.war"
                                 sh ("ls -la")
                                 sh ("whoami")
-                                sh ("cp build/libs/*.war /app/toy_project/webapps/ROOT.war")
+                                sh ("cp build/libs/*.war /app/toy_project_api/webapps/ROOT.war")
                             } catch (e) {
                                 slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "빌드 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                             }
