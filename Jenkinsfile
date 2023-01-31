@@ -51,15 +51,15 @@ pipeline {
                     steps {
                         script {
                             try {
-                                sh ("cd ${JENKINS_HOME}/workspace/TEST")
+                                sh ("cd ${JENKINS_HOME}/workspace/API")
                                 sh ("chmod 755 ./gradlew")
-                                sh ("./gradlew clean bootJar")
-                                env.jarfile = sh (script: 'basename build/libs/*.jar .jar', returnStdout: true ).trim()
-                                echo "set File ${env.jarfile}.jar"
+                                sh ("./gradlew clean build")
+                                env.warfile = sh (script: 'basename build/libs/*.war .war', returnStdout: true ).trim()
+                                echo "set File ${env.warfile}.war"
                                 sh ("ls -la")
                                 sh ("su webapp")
                                 sh ("whoami")
-                                sh ("cp build/libs/*.jar /app/toy_project/webapp/${env.jarfile}.jar")
+                                sh ("cp build/libs/*.war /app/toy_project/webapp/ROOT.war")
                             } catch (e) {
                                 slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "빌드 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                             }
