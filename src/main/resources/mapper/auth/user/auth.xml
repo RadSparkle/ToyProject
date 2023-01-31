@@ -21,14 +21,14 @@
 <!--        </selectKey>-->
    </insert>
 
-    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.AuthDto$signIn" resultType="com.toyproject.api.auth.user.dto.AuthDto$signInInfo">
-        SELECT uid AS uid
-             , user_id AS userId
-        FROM toy_cont.users
-        WHERE user_id = #{userId}
-         AND pwd = #{pwd}
-         AND access_tp = #{accessTp}
-    </select>
+<!--    <select id="getUser" parameterType="com.toyproject.api.auth.user.dto.AuthDto$signIn" resultType="com.toyproject.api.auth.user.dto.AuthDto$signInInfo">-->
+<!--        SELECT uid AS uid-->
+<!--             , user_id AS userId-->
+<!--        FROM toy_cont.users-->
+<!--        WHERE user_id = #{userId}-->
+<!--         AND pwd = #{pwd}-->
+<!--         AND access_tp = #{accessTp}-->
+<!--    </select>-->
 
     <select id="getUserInfo" parameterType="Integer" resultType="com.toyproject.api.auth.user.dto.AuthDto$signIn">
         SELECT uid AS uid

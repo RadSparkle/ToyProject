@@ -19,10 +19,10 @@ public class AuthServiceImpl implements AuthService {
        authMapper.insertUser(user);
     }
 
-    @Override
-    public AuthDto.signInInfo getUser(AuthDto.signIn user) {
-        return authMapper.getUser(user);
-    }
+//    @Override
+//    public AuthDto.signInInfo getUser(AuthDto.signIn user) {
+//        return authMapper.getUser(user);
+//    }
 
     @Override
     public AuthDto.signIn getUserInfo(int uid) {

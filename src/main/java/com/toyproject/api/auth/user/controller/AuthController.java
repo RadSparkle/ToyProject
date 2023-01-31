@@ -59,24 +59,24 @@ public class AuthController {
 //
 //    }
 
-    @ApiOperation("로그인")
-    @PostMapping("/sign-in")
-    @CrossOrigin("*")
-    public ResponseEntity<Object> signIn (@RequestBody AuthDto.signIn user) {
-        //입력한 비밀번호 암호화
-        String encryPwd = DigestUtils.sha256Hex(user.getPwd());
-        user.setPwd(encryPwd);
-
-        AuthDto.signInInfo userInfo = authService.getUser(user);
-
-        if(userInfo == null) {
-            return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
-        }
-
-        userInfo.setAccessToken(jwtProvider.createToken(userInfo.getUserId()));
-
-        return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
-    }
+//    @ApiOperation("로그인")
+//    @PostMapping("/sign-in")
+//    @CrossOrigin("*")
+//    public ResponseEntity<Object> signIn (@RequestBody AuthDto.signIn user) {
+//        //입력한 비밀번호 암호화
+//        String encryPwd = DigestUtils.sha256Hex(user.getPwd());
+//        user.setPwd(encryPwd);
+//
+//        AuthDto.signInInfo userInfo = authService.getUser(user);
+//
+//        if(userInfo == null) {
+//            return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
+//        }
+//
+//        userInfo.setAccessToken(jwtProvider.createToken(userInfo.getUserId()));
+//
+//        return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
+//    }
 
     @ApiOperation("회원 정보 조회")
     @GetMapping("/getUserInfo/{uid}")

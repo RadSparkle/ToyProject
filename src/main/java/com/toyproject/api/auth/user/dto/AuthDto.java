@@ -34,9 +34,9 @@ public class AuthDto{
         private String userType;
     }
 
-    @Data
-    public static class signInInfo  extends TokenInfo{
-        private int uid;
-        private String userId;
-    }
+//    @Data
+//    public static class signInInfo  extends TokenInfo{
+//        private int uid;
+//        private String userId;
+//    }
 }
