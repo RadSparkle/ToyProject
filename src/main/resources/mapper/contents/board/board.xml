@@ -135,4 +135,9 @@
           AND pid = #{pid}
           AND uid = #{uid}
     </update>
+
+    <insert id="insertCmt" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
+        INSERT INTO toy_cont.comments (uid, bid, pid, contents)
+        VALUES (#{uid}, #{bid}, #{pid}, #{contents})
+    </insert>
 </mapper>

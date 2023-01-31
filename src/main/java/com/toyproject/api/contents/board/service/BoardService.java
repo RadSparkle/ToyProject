@@ -4,6 +4,7 @@ package com.toyproject.api.contents.board.service;
 import com.toyproject.api.contents.board.dto.BoardDto;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public interface BoardService {
     HashMap getBoardList(int bid);
@@ -21,4 +22,6 @@ public interface BoardService {
     void updateBoard(BoardDto.boardInfo boardInfo);
 
     void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
+
+    void insertCmt(BoardDto.boardCmt boardCmt);
 }

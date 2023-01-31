@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface BoardMapper {
@@ -33,4 +34,6 @@ public interface BoardMapper {
     void deleteBoardMulti(BoardDto.boardList boardInfo);
 
     void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
+
+    void insertCmt(BoardDto.boardCmt boardCmt);
 }

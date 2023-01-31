@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -67,6 +68,11 @@ public class BoardServiceImpl implements BoardService {
     public void deleteBoardInfoMulti(BoardDto.boardList boardInfo) {
         boardMapper.deleteBoardMulti(boardInfo);
         boardMapper.deleteBoardInfoMulti(boardInfo);
+    }
+
+    @Override
+    public void insertCmt(BoardDto.boardCmt boardCmt) {
+        boardMapper.insertCmt(boardCmt);
     }
 
 

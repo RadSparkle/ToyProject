@@ -47,4 +47,12 @@ public class BoardDto {
         private int uid;
         private int likeType;
     }
+
+    @Data
+    public static class boardCmt {
+        private int uid;
+        private int bid;
+        private int pid;
+        private String contents;
+    }
 }
