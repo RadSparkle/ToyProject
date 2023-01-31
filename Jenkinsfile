@@ -53,7 +53,7 @@ pipeline {
                             try {
                                 sh ("cd ${JENKINS_HOME}/workspace/API")
                                 sh ("chmod 755 ./gradlew")
-                                sh ("./gradlew clean build")
+                                sh ("./gradlew clean bootWar")
                                 env.warfile = sh (script: 'basename build/libs/*.war .war', returnStdout: true ).trim()
                                 echo "set File ${env.warfile}.war"
                                 sh ("ls -la")
