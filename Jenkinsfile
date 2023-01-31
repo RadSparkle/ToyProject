@@ -57,7 +57,6 @@ pipeline {
                                 env.warfile = sh (script: 'basename build/libs/*.war .war', returnStdout: true ).trim()
                                 echo "set File ${env.warfile}.war"
                                 sh ("ls -la")
-                                sh ("su webapp")
                                 sh ("whoami")
                                 sh ("cp build/libs/*.war /app/toy_project/webapp/ROOT.war")
                             } catch (e) {
