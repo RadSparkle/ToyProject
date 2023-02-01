@@ -42,12 +42,7 @@ pipeline {
                                 )
                     }
         }
-        stage('Start') {
-                    steps {
-                        slackSend (channel: SLACK_CHANNEL, color: '#FFFF00', message: "배포 시작: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL}) ${env.BUILD_USER}")
-                           }
-        }
-        stage('Build & Release') {
+        stage('Build') {
                     steps {
                         script {
                             try {
@@ -57,16 +52,28 @@ pipeline {
                                 env.jarfile = sh (script: 'basename build/libs/*.jar .jar', returnStdout: true ).trim()
                                 echo "set File ${env.jarfile}.jar"
                                 sh ("ls -la")
-                                sh ("cp build/libs/*.jar /app/toy_api/toy_api.jar")
-                                sh ("cd /app/toy_api")
-                                sh ("ls -la")
-                                sh ("chmod -x toy_api.jar")
-                                sh ("java -jar toy_api.jar --spring.config.location=/app/toy_api/prop/application.yml")
+                                slackSend (channel: SLACK_CHANNEL, color: '#00FF00', message: "빌드 성공: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                             } catch (e) {
                                 slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "빌드 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                                break
                             }
                         }
                     }
+        stage('Release') {
+                        steps {
+                            script {
+                                try {
+                                    sh ("cp ${JENKINS_HOME}/workspace/API/build/libs/*.jar /app/toy_api/toy_api.jar")
+                                    sh ("cd /app/toy_api")
+                                    sh ("ls -la")
+                                    sh ("java -jar toy_api.jar --spring.config.location=/app/toy_api/prop/application.yml")
+                                } catch (e) {
+                                    slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "배포 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+                                    break
+                                }
+                            }
+                        }
+                        }
         }
     }
     post {
