@@ -64,7 +64,7 @@ pipeline {
                             script {
                                 try {
                                     sh ("cp ${JENKINS_HOME}/workspace/API/build/libs/*.jar /app/toy_api/toy_api.jar")
-                                    sh ("/app/toy_api/execute.sh")
+                                    sh ("/app/toy_api/api_execute.sh")
                                     slackSend (channel: SLACK_CHANNEL, color: '#00FF00', message: "배포 성공: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                                 } catch (e) {
                                     slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "배포 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
