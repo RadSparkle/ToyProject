@@ -60,7 +60,7 @@ pipeline {
                                 sh ("whoami")
                                 sh ("cp build/libs/*.war /app/toy_project_api/webapps/ROOT.war")
                                 sh ("cd /app/toy_project_api/webapps")
-                                sh ("java -jar ROOT.war --spring.config.location=/app/toy_project_api/conf/application.yml")
+                                sh ("java -jar ROOT.war --spring.config.location=/app/toy_project_api/prop/application.yml")
                             } catch (e) {
                                 slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "빌드 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                             }
