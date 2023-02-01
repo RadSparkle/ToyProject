@@ -58,7 +58,8 @@ pipeline {
                                 echo "set File ${env.jarfile}.jar"
                                 sh ("ls -la")
                                 sh ("cp build/libs/*.jar /app/toy_api/toy_api.jar")
-                                sh ("java -jar /app/toy_project/toy_api.jar --spring.config.location=/app/toy_project/prop/application.yml")
+                                sh ("cd /app/toy_api")
+                                sh ("java -jar toy_api.jar 2>&1 > logs/logs.log & --spring.config.location=/app/toy_project/prop/application.yml")
                             } catch (e) {
                                 slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "빌드 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
                             }
