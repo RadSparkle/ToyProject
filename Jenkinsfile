@@ -59,6 +59,8 @@ pipeline {
                                 sh ("ls -la")
                                 sh ("cp build/libs/*.jar /app/toy_api/toy_api.jar")
                                 sh ("cd /app/toy_api")
+                                sh ("ls -la")
+                                sh ("chmod -x toy_api.jar")
                                 sh ("java -jar toy_api.jar --spring.config.location=/app/toy_api/prop/application.yml")
                             } catch (e) {
                                 slackSend (channel: SLACK_CHANNEL, color: '#FF0000', message: "빌드 실패: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
