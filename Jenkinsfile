@@ -59,6 +59,7 @@ pipeline {
                             }
                         }
                     }
+        }
         stage('Release') {
                         steps {
                             script {
@@ -74,7 +75,6 @@ pipeline {
                             }
                         }
                         }
-        }
     }
     post {
         success {
