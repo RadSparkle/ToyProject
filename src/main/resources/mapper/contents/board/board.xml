@@ -5,7 +5,7 @@
    <select id="getBoardList" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
        SELECT a.bid AS bid
             , a.pid AS pid
---             , a.title AS title
+            , a.title AS title
             , a.views AS views
             , a.cmt_count AS cmtCount
             , a.is_use AS isUse
