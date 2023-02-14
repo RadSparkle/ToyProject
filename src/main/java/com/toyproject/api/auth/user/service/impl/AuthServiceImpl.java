@@ -15,14 +15,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void insertUser(AuthDto.signUp user) {
-
        authMapper.insertUser(user);
     }
 
-//    @Override
-//    public AuthDto.signInInfo getUser(AuthDto.signIn user) {
-//        return authMapper.getUser(user);
-//    }
+    @Override
+    public AuthDto.signInInfo getUser(AuthDto.signIn user) {
+        return authMapper.getUser(user);
+    }
 
     @Override
     public AuthDto.signIn getUserInfo(int uid) {
