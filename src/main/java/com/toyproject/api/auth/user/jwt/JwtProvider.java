@@ -14,7 +14,7 @@ import java.util.Date;
 @RestController
 public class JwtProvider {
 
-    @Value("${jwt.password}")
+//    @Value("${jwt.password}")
     private String secretKey;
 
     public String createToken(String userId) {

@@ -22,7 +22,7 @@ public class AuthDto{
     }
 
     @Data
-    public static class signIn {
+    public static class signIn extends TokenInfo{
         private int uid;
         private String userId;
         private String pwd;
@@ -34,9 +34,10 @@ public class AuthDto{
         private String userType;
     }
 
-    @Data
-    public static class signInInfo  extends TokenInfo{
-        private int uid;
-        private String userId;
-    }
+//    @Data
+//    public static class signInInfo  extends TokenInfo{
+//        private int uid;
+//        private String userId;
+//        private String accessTp;
+//    }
 }

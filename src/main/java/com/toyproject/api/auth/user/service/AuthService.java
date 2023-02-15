@@ -7,9 +7,9 @@ import com.toyproject.api.common.model.auth.TokenVo;
 public interface AuthService {
     void insertUser(AuthDto.signUp user);
 
-    AuthDto.signInInfo getUser(AuthDto.signIn user);
+    AuthDto.signIn getUser(AuthDto.signIn user);
 
     AuthDto.signIn getUserInfo(int uid);
 
-    TokenVo getToken(JwtPayLoad payLoad) throws Exception;
+    void getToken(JwtPayLoad payLoad) throws Exception;
 }

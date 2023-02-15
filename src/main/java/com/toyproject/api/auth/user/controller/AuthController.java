@@ -2,9 +2,11 @@ package com.toyproject.api.auth.user.controller;
 
 import com.toyproject.api.auth.user.dto.AuthDto;
 import com.toyproject.api.auth.user.jwt.AuthorizationToken;
+import com.toyproject.api.auth.user.jwt.JwtPayLoad;
 import com.toyproject.api.auth.user.service.AuthService;
 import com.toyproject.api.common.DefaultResponse;
 import com.toyproject.api.auth.user.jwt.JwtProvider;
+import com.toyproject.api.common.model.auth.TokenVo;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,8 +68,13 @@ public class AuthController {
         //입력한 비밀번호 암호화
         String encryPwd = DigestUtils.sha256Hex(user.getPwd());
         user.setPwd(encryPwd);
+        AuthDto.signIn userInfo = authService.getUser(user);
 
-        AuthDto.signInInfo userInfo = authService.getUser(user);
+//        TokenVo token = authService.getToken(JwtPayLoad.builder()
+//                .uid(userInfo.getUid())
+//                .userId(userInfo.getUserId())
+//                .accessType(userInfo.getAccessTp())
+//        )
 
         if(userInfo == null) {
             return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
