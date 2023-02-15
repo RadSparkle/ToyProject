@@ -114,8 +114,11 @@ public class BoardController {
     @ApiOperation("댓글등록")
     @PostMapping("/insertComment")
     public ResponseEntity<Object> insertCmt(@RequestBody BoardDto.boardCmt boardCmt) {
-        boardService.insertCmt(boardCmt);
-
+        try {
+            boardService.insertCmt(boardCmt);
+        } catch (Exception e) {
+            return DefaultResponse.from(BAD_REQUEST.value(),"댓글 등록 실패",boardCmt).build();
+        }
         return DefaultResponse.from(OK.value(), "댓글 등록 완료", boardCmt).build();
     }
 }

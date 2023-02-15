@@ -137,7 +137,11 @@
     </update>
 
     <insert id="insertCmt" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
-        INSERT INTO toy_cont.comments (uid, bid, pid, contents)
-        VALUES (#{uid}, #{bid}, #{pid}, #{contents})
+        <selectKey keyProperty="cid" resultType="Integer" order="BEFORE">
+            SELECT IFNULL(MAX(cid)+1,1) AS cid
+            FROM toy_cont.comments WHERE bid = #{bid} AND pid = #{pid}
+        </selectKey>
+        INSERT INTO toy_cont.comments (cid, uid, bid, pid, contents)
+        VALUES (#{cid}, #{uid}, #{bid}, #{pid}, #{contents})
     </insert>
 </mapper>

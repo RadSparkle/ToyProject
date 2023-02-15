@@ -53,6 +53,7 @@ public class BoardDto {
         private int uid;
         private int bid;
         private int pid;
+        private int cid;
         private String contents;
     }
 }
