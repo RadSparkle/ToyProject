@@ -8,6 +8,4 @@ public interface AuthMapper {
     void insertUser(AuthDto.signUp user);
 
     AuthDto.signIn getUser(AuthDto.signIn user);
-
-    AuthDto.signIn getUserInfo(int uid);
 }
