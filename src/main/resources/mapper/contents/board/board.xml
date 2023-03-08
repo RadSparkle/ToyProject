@@ -144,4 +144,17 @@
         INSERT INTO toy_cont.comments (cid, uid, bid, pid, contents)
         VALUES (#{cid}, #{uid}, #{bid}, #{pid}, #{contents})
     </insert>
+
+    <select id="getCmt" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
+        SELECT cid AS cid
+            , uid AS uid
+            , bid AS bid
+            , pid AS pid
+            , contents AS contents
+            , reg_dt AS regDt
+            , mod_Dt AS modDt
+        FROM toy_cont.comments
+        WHERE bid = #{bid}
+         AND pid = #{pid}
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.toyproject.api.contents.board.mapper;
 
 import com.toyproject.api.contents.board.dto.BoardDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,4 +37,6 @@ public interface BoardMapper {
     void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
 
     void insertCmt(BoardDto.boardCmt boardCmt);
+
+    List<BoardDto.boardCmt> getCmt(int pid, int bid);
 }

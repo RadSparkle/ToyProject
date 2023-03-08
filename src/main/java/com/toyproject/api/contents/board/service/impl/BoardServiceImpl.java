@@ -4,6 +4,7 @@ import com.toyproject.api.contents.board.dto.BoardDto;
 import com.toyproject.api.contents.board.mapper.BoardMapper;
 import com.toyproject.api.contents.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -73,6 +74,15 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void insertCmt(BoardDto.boardCmt boardCmt) {
         boardMapper.insertCmt(boardCmt);
+    }
+
+    @Override
+    public HashMap getCmt(int pid, int bid) {
+        HashMap cmtMap = new HashMap();
+        List<BoardDto.boardCmt> cmtList = boardMapper.getCmt(pid, bid);
+        cmtMap.put("commentList",cmtList);
+
+        return cmtMap;
     }
 
 

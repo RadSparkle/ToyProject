@@ -2,6 +2,7 @@ package com.toyproject.api.contents.board.dto;
 
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class BoardDto {
         private String modDt;
         private String contents;
         private String boardName;
+
+        private Object cmtList;
     }
 
     @Data
@@ -51,9 +54,17 @@ public class BoardDto {
     @Data
     public static class boardCmt {
         private int uid;
+
         private int bid;
+
         private int pid;
+
         private int cid;
+
         private String contents;
+
+        private String regDt;
+
+        private String modDt;
     }
 }

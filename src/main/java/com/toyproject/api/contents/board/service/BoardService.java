@@ -2,6 +2,7 @@ package com.toyproject.api.contents.board.service;
 
 
 import com.toyproject.api.contents.board.dto.BoardDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -24,4 +25,6 @@ public interface BoardService {
     void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
 
     void insertCmt(BoardDto.boardCmt boardCmt);
+
+    HashMap getCmt(int pid, int bid);
 }

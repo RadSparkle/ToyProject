@@ -3,6 +3,7 @@ package com.toyproject.api.contents.board.controller;
 import com.toyproject.api.common.DefaultResponse;
 import com.toyproject.api.contents.board.dto.BoardDto;
 import com.toyproject.api.contents.board.service.BoardService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -120,5 +121,13 @@ public class BoardController {
             return DefaultResponse.from(BAD_REQUEST.value(),"댓글 등록 실패",boardCmt).build();
         }
         return DefaultResponse.from(OK.value(), "댓글 등록 완료", boardCmt).build();
+    }
+
+    @ApiOperation("댓글리스트 가져오기")
+    @GetMapping("/getComments/{bid}/{pid}")
+    public ResponseEntity<Object> getCmt(@PathVariable int pid, @PathVariable int bid) {
+        HashMap boardCmtList = boardService.getCmt(pid, bid);
+
+        return DefaultResponse.from(OK.value(), "댓글 리스트 조회완료", boardCmtList).build();
     }
 }
