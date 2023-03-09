@@ -132,4 +132,8 @@ public class JwtProvider {
         Date now = new Date();
         return (exp - now.getTime()) / 1000;
     }
+
+    public String getAccessTp(Claims claims) {
+        return claims.get(ACCESS_TYPE, String.class);	// 사용자 액세스 타입 구하기
+    }
 }
