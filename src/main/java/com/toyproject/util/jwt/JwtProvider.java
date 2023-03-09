@@ -35,6 +35,7 @@ public class JwtProvider {
 
         Date date = new Date();
         long exp = date.getTime() + JWT_ACCESS_EXPIRED_TIME;
+
         if (addExpiredTime != null) {
             exp = date.getTime() + addExpiredTime;
         }
@@ -45,6 +46,26 @@ public class JwtProvider {
                 .setExpiration(new Date(exp))
                 .setHeader(headers)
                 .setClaims(payLoad.getMap())
+                .signWith(SignatureAlgorithm.HS256, key.getBytes())
+                .compact();
+    }
+
+    public String createRefreshToken(String accessToken, String key) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(TYPE, JWT_TYP); // 타입 : JWT
+        headers.put(ALGORITHM, JWT_ALG); // 알고리즘방식 : HS256
+
+        Date date = new Date();
+        long exp = date.getTime() + JWT_REFRESH_EXPIRED_TIME; //현재시간 + 만료시간
+
+        Map<String, Object> payloads = new HashMap<>();
+
+        payloads.put(ACCESS_TOKEN, accessToken);
+        payloads.put(EXPIRED, exp);
+
+        return Jwts.builder().setExpiration(new Date(exp))
+                .setHeader(headers)
+                .setClaims(payloads)
                 .signWith(SignatureAlgorithm.HS256, key.getBytes())
                 .compact();
     }
