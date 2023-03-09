@@ -136,4 +136,8 @@ public class JwtProvider {
     public String getAccessTp(Claims claims) {
         return claims.get(ACCESS_TYPE, String.class);	// 사용자 액세스 타입 구하기
     }
+
+    public String getUserTp(Claims claims) {
+        return claims.get(USER_TYPE, String.class);	// 사용자 권한 구하기
+    }
 }
