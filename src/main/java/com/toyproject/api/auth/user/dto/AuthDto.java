@@ -11,7 +11,7 @@ public class AuthDto{
 
     @Data
     public static class signUp{
-        private int uid;
+        private Long uid;
         private String userId;
         private String pwd;
         private String nickname;
@@ -24,7 +24,7 @@ public class AuthDto{
 
     @Data
     public static class signIn{
-        private int uid;
+        private Long uid;
         private String userId;
         private String pwd;
         private String nickname;
