@@ -101,7 +101,7 @@ public class JwtProvider {
 
     public boolean tokenExpired(Claims claims) {
         Date date = new Date();
-        Date expDate = claims.get(EXPIRED, Date.class);	// 만료시간 값 가져오기
+        Date expDate = claims.get(EXPIRED, Date.class);    // 만료시간 값 가져오기
 
         long exp = expDate.getTime() / 1000; // 만료시간/1000
         expDate.setTime(exp); // 1000으로 나눈 만료시간 세팅
@@ -111,5 +111,9 @@ public class JwtProvider {
          * 현재 시간이 더 작으면 false
          */
         return date.getTime() > expDate.getTime();
+    }
+
+    public String getAccessToken(Claims claims) {
+        return claims.get(ACCESS_TOKEN, String.class);	// 액세스 토큰 구하기
     }
 }
