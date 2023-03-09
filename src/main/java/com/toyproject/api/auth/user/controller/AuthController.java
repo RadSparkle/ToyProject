@@ -71,11 +71,22 @@ public class AuthController {
                 .userType(user.getUserType())
                 .build());
 
+        AuthDto.login vo = new AuthDto.login();
+
+        vo.setUser_tp(userInfo.getUserType());
+        vo.setAccess_token(token.getAccess_token());
+        vo.setAccess_token_expires_in(token.getAccess_token_expires_in());
+        vo.setRefresh_token(token.getRefresh_token());
+        vo.setRefresh_token_expires_in(token.getRefresh_token_expires_in());
+        vo.setAccess_tp(userInfo.getAccessTp());
+        vo.setUid(userInfo.getUid());
+
+
         if(userInfo == null) {
             return DefaultResponse.from(BAD_REQUEST.value(), "아이디 또는 비밀번호가 맞지않습니다.", user).build();
         }
 
-        return DefaultResponse.from(OK.value(), "로그인 성공", userInfo).build();
+        return DefaultResponse.from(OK.value(), "로그인 성공", vo).build();
     }
 
     @ApiOperation("회원 정보 조회")
