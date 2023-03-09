@@ -124,4 +124,12 @@ public class JwtProvider {
     public Optional<Long> getUid(Claims claims) {
         return Optional.ofNullable(claims.get(UID, Long.class));
     }
+
+    public long getExpSec(Claims claims) {
+        Date expDate = claims.get(EXPIRED, Date.class);	// 만료시간 값 가져오기
+        long exp = expDate.getTime() / 1000; // 만료시간/1000
+
+        Date now = new Date();
+        return (exp - now.getTime()) / 1000;
+    }
 }
