@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JwtPayLoad {
