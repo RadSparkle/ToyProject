@@ -2,11 +2,13 @@ package com.toyproject.util.jwt;
 
 import antlr.StringUtils;
 import com.toyproject.util.StringUtil;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.*;
 import static com.toyproject.util.jwt.JwtOption.*;
+import static io.jsonwebtoken.lang.Strings.UTF_8;
 
 public class JwtProvider {
 
@@ -79,5 +81,21 @@ public class JwtProvider {
 
         return token.toLowerCase(Locale.ROOT)
                 .startsWith(JWT_AUTH_TYPE.toLowerCase(Locale.ROOT));
+    }
+
+    public Claims claimsChk(String token) {
+        String key = Base64.getEncoder().encodeToString(JWT_SECRET_KEY.getBytes(UTF_8));
+
+        if (isBearer(token)) {
+            return Jwts.parser()
+                    .setSigningKey(key.getBytes())
+                    .parseClaimsJws(token.substring(7))
+                    .getBody();
+        }
+
+        return Jwts.parser()
+                .setSigningKey(key.getBytes())
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
