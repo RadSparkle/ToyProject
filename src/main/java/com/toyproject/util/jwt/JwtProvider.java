@@ -1,5 +1,7 @@
 package com.toyproject.util.jwt;
 
+import antlr.StringUtils;
+import com.toyproject.util.StringUtil;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -68,5 +70,14 @@ public class JwtProvider {
                 .setClaims(payloads)
                 .signWith(SignatureAlgorithm.HS256, key.getBytes())
                 .compact();
+    }
+
+    public static boolean isBearer(String token) {
+        if (StringUtil.isBlankString(token)) {
+            return false;
+        }
+
+        return token.toLowerCase(Locale.ROOT)
+                .startsWith(JWT_AUTH_TYPE.toLowerCase(Locale.ROOT));
     }
 }
