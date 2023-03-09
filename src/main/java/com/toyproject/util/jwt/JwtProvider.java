@@ -116,4 +116,8 @@ public class JwtProvider {
     public String getAccessToken(Claims claims) {
         return claims.get(ACCESS_TOKEN, String.class);	// 액세스 토큰 구하기
     }
+
+    public String getUserId(Claims claims) {
+        return claims.get(USER_ID, String.class); // 사용자 아이디 구하기
+    }
 }
