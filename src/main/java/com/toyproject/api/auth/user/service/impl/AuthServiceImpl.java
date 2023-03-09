@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import static com.toyproject.util.jwt.JwtOption.JWT_AUTH_TYPE;
 
 
-@Service
+@Service("AuthService")
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
