@@ -11,7 +11,7 @@ public class TokenVo extends ResponseObject {
     private String access_token;
 
     @ApiModelProperty(value="액세스 토큰 만료시간(초)")
-    private Integer access_token_expries_in;
+    private Integer access_token_expires_in;
 
     @ApiModelProperty(value="리프레시 토큰")
     private String refresh_token;

@@ -7,8 +7,11 @@ import com.toyproject.api.common.model.auth.TokenVo;
 import com.toyproject.util.jwt.JwtOption;
 import com.toyproject.util.jwt.JwtPayLoad;
 import com.toyproject.util.jwt.JwtProvider;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.toyproject.util.jwt.JwtOption.JWT_AUTH_TYPE;
 
 
 @Service
@@ -28,10 +31,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public TokenVo getToken(JwtPayLoad build) {
+    public TokenVo getToken(JwtPayLoad payLoad) {
         String key = JwtOption.encodeSecretKey();
         JwtProvider provider = new JwtProvider();
+        String accessToken = provider.createAccessToken(payLoad, JwtOption.encodeSecretKey());
+        String refreshToken = provider.createRefreshToken(accessToken, JwtOption.encodeSecretKey());
 
-        return null;
+        Claims accessTokenClaims = provider.claimsChk(JWT_AUTH_TYPE + " " + accessToken);
+        Claims refreshTokenClaims = provider.claimsChk(JWT_AUTH_TYPE + " " +  refreshToken);
+
+        long accessTokenExp = provider.getExpSec(accessTokenClaims);
+        long refreshTokenExp = provider.getExpSec(refreshTokenClaims);
+
+        TokenVo vo = new TokenVo();
+
+        vo.setAccess_token(accessToken);
+        vo.setAccess_token_expires_in((int) accessTokenExp);
+        vo.setRefresh_token(refreshToken);
+        vo.setRefresh_token_expires_in((int) refreshTokenExp);
+
+        return vo;
     }
 }
