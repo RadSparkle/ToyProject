@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.toyproject.util.StatusMsg.AUTH_MESSAGE_0007;
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
@@ -80,6 +81,8 @@ public class AuthController {
         vo.setRefresh_token_expires_in(token.getRefresh_token_expires_in());
         vo.setAccess_tp(userInfo.getAccessTp());
         vo.setUid(userInfo.getUid());
+        vo.setStatus(AUTH_MESSAGE_0007.getStatus_code());
+        vo.setMessage(AUTH_MESSAGE_0007.getCustom_msg());
 
 
         if(userInfo == null) {
