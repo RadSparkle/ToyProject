@@ -4,6 +4,7 @@ import com.toyproject.api.auth.token.service.TokenService;
 import com.toyproject.api.common.model.auth.TokenInfoVo;
 import com.toyproject.api.common.model.auth.UserAuthDto;
 import com.toyproject.api.common.model.auth.UserVo;
+import com.toyproject.api.common.service.auth.CommonAuthService;
 import com.toyproject.util.ResponseMessage;
 import com.toyproject.util.StatusMsg;
 import com.toyproject.util.jwt.JwtProvider;
