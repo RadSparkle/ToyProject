@@ -13,6 +13,51 @@ import java.util.Map;
 
 @Component
 public class ResponseMessage {
+
+    public HttpServletResponse errorResponse(HttpServletRequest request, HttpServletResponse response,
+                                             int status, String error, String message) throws IOException
+    {
+        Map<String, Object> obj = message(status, error, message, request.getRequestURI());
+
+        response.resetBuffer();
+        response.setStatus(status);
+        response.setContentType("application/json; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.getOutputStream().write(new ObjectMapper().writeValueAsString(obj).getBytes(StandardCharsets.UTF_8));
+        response.flushBuffer();
+
+        return response;
+    }
+
+    public HttpServletResponse errorResponse(HttpServletRequest request, HttpServletResponse response,
+                                             int status, int errorCode,
+                                             String error, String message) throws IOException
+    {
+        Map<String, Object> obj = message(errorCode, error, message, request.getRequestURI());
+
+        response.resetBuffer();
+        response.setStatus(status);
+        response.setContentType("application/json; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.getOutputStream().write(new ObjectMapper().writeValueAsString(obj).getBytes(StandardCharsets.UTF_8));
+        response.flushBuffer();
+
+        return response;
+    }
+
+    public HttpServletResponse errorResponse(HttpServletRequest request, HttpServletResponse response,
+                                             StatusMsg statusMsg) throws IOException {
+        Map<String, Object> obj = message(statusMsg, request.getRequestURI());
+
+        response.resetBuffer();
+        response.setStatus(statusMsg.getStatus_code());
+        response.setHeader("Content-Type", "application/json; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.getOutputStream().write(new ObjectMapper().writeValueAsString(obj).getBytes(StandardCharsets.UTF_8));
+        response.flushBuffer();
+
+        return response;
+    }
     private Map<String, Object> message(int status, String error, String message, String path) {
         Map<String, Object> obj = new LinkedHashMap<>();
 
