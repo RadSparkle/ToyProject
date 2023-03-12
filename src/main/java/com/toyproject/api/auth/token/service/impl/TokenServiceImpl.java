@@ -5,7 +5,9 @@ import com.toyproject.api.auth.token.service.TokenService;
 import com.toyproject.api.common.model.auth.TokenInfoVo;
 import com.toyproject.util.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
+import org.springframework.stereotype.Service;
 
+@Service("TokenService")
 public class TokenServiceImpl implements TokenService {
     @Override
     public TokenInfoVo getTokenInfo(JwtProvider provider, Claims claims) {
