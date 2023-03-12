@@ -36,6 +36,8 @@ public class TokenController {
         if(provider.getAccessToken(claims) != null) responseMessage.errorResponse(request, response, StatusMsg.AUTH_MESSAGE_0004);
         if(response.getStatus() < 200 || response.getStatus() > 299) return null;
 
+        TokenInfoVo vo = tokenService.getTokenInfo(provider, claims);
+
     }
 
 }
