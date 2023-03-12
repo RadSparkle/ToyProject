@@ -1,13 +1,11 @@
 package com.toyproject.api.user.service.impl;
 
-import com.toyproject.api.contents.board.dto.BoardDto;
 import com.toyproject.api.user.dto.UserDto;
 import com.toyproject.api.user.mapper.UserMapper;
 import com.toyproject.api.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.List;
 

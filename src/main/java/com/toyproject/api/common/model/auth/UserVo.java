@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-
 public class UserVo extends ResponseObject {
 
     @ApiModelProperty(value = "사용자번호(고유식별번호)", example = "1")
