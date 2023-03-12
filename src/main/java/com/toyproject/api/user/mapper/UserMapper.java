@@ -12,4 +12,6 @@ public interface UserMapper {
     UserDto.myPageInfo getMyPage(int uid);
 
     List getMyBoardList(int uid);
+
+    void insertFollow(int uid, int fid);
 }

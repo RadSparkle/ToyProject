@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
 
         return hm;
     }
+
+    @Override
+    public void insertFollow(int uid, int fid) {
+        userMapper.insertFollow(uid, fid);
+    }
 }

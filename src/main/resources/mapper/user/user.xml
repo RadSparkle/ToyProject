@@ -36,4 +36,8 @@
             AND is_use = 1
             ORDER BY a.reg_dt DESC
     </select>
+
+    <insert id="insertFollow" parameterType="Integer">
+        INSERT INTO toy_cont.follow (uid, fid) VALUES(#{uid}, #{fid})
+    </insert>
 </mapper>

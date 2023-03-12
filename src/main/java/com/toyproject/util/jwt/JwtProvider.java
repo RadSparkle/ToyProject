@@ -121,8 +121,9 @@ public class JwtProvider {
         return claims.get(USER_ID, String.class); // 사용자 아이디 구하기
     }
 
-    public Optional<Long> getUid(Claims claims) {
-        return Optional.ofNullable(claims.get(UID, Long.class));
+    public int getUid(String token) {
+        int uid = (int)claimsChk(token).get("uid");
+        return uid; // 사용자 아이디 구하기
     }
 
     public long getExpSec(Claims claims) {

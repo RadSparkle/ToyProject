@@ -8,9 +8,11 @@ import com.toyproject.api.user.service.UserService;
 import com.toyproject.util.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +32,13 @@ public class UserController {
 
     private final UserService userService;
 
+    private static JwtProvider jwtProvider;
+
     @ApiOperation("마이페이지 조회")
     @GetMapping("/getMyPage")
     public ResponseEntity<Object> getMyPage(HttpServletResponse response, HttpServletRequest request,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
-        JwtProvider jwt = new JwtProvider();
-        int uid = (int)jwt.claimsChk(accessToken).get("uid");
+        int uid = jwtProvider.getUid(accessToken);
 
         HashMap userVo = (HashMap) userService.getMyPage(uid);
 
@@ -43,7 +46,15 @@ public class UserController {
         return DefaultResponse.from(OK.value(),"마이페이지 조회 성공", userVo).build();
     }
 
-//    @ApiOperation("내가 쓴 게시글 리스트 조회")
-//    @GetMapping("/getMyBoardList")
-//    public ResponseEntity<Object> getMyBoardList()
+    @ApiOperation("팔로우 하기")
+    @PostMapping("/follow/{fid}")
+    public ResponseEntity<Object> following(HttpServletRequest request, HttpServletResponse response,
+                                            @PathVariable int fid,
+                                            @RequestHeader(name = "Authorization") String accessToken) throws Exception {
+        int uid = jwtProvider.getUid(accessToken);
+
+        userService.insertFollow(uid, fid);
+
+        return DefaultResponse.from(OK.value(), "팔로잉 성공", fid).build();
+    }
 }
