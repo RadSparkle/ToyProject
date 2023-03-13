@@ -36,6 +36,7 @@ public class UserController {
 
     @ApiOperation("마이페이지 조회")
     @GetMapping("/getMyPage")
+    @CrossOrigin("*")
     public ResponseEntity<Object> getMyPage(HttpServletResponse response, HttpServletRequest request,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
         int uid = jwtProvider.getUid(accessToken);
@@ -48,6 +49,7 @@ public class UserController {
 
     @ApiOperation("팔로우 하기")
     @PostMapping("/follow/{fid}")
+    @CrossOrigin("*")
     public ResponseEntity<Object> following(HttpServletRequest request, HttpServletResponse response,
                                             @PathVariable int fid,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
