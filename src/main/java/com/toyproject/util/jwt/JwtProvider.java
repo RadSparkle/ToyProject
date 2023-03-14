@@ -5,11 +5,13 @@ import com.toyproject.util.StringUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.*;
 import static com.toyproject.util.jwt.JwtOption.*;
 import static io.jsonwebtoken.lang.Strings.UTF_8;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class JwtProvider {
 
     private static final String TYPE = "typ";
