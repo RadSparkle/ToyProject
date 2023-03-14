@@ -27,4 +27,6 @@ public interface BoardService {
     void insertCmt(BoardDto.boardCmt boardCmt);
 
     HashMap getCmt(int pid, int bid);
+
+    HashMap getCategory();
 }

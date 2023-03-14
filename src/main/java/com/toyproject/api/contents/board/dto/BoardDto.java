@@ -67,4 +67,17 @@ public class BoardDto {
 
         private String modDt;
     }
+
+    @Data
+    public static class boardCategory {
+        private int bid;
+
+        private String bType;
+
+        private String boardName;
+
+        private String boardLink;
+
+        private String category;
+    }
 }

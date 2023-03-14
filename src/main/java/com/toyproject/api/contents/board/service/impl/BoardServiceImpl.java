@@ -85,5 +85,14 @@ public class BoardServiceImpl implements BoardService {
         return cmtMap;
     }
 
+    @Override
+    public HashMap getCategory() {
+        HashMap hm = new HashMap();
+        List<BoardDto.boardCategory> category = boardMapper.getCategory();
+        hm.put("category",category);
+
+        return hm;
+    }
+
 
 }

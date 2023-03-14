@@ -130,4 +130,16 @@ public class BoardController {
 
         return DefaultResponse.from(OK.value(), "댓글 리스트 조회완료", boardCmtList).build();
     }
+
+//    @ApiOperation("댓글 삭제")
+//    @DeleteMapping("/deleteComment")
+//    public ResponseEntity<Object> deleteCmt(@RequestBody)
+
+    @ApiOperation("전체 게시판 카테고리 조회")
+    @GetMapping("/getCategory")
+    public ResponseEntity<Object> getCategory() {
+        HashMap boardCategory = boardService.getCategory();
+        System.out.println(boardCategory);
+        return DefaultResponse.from(OK.value(), "전체 카테고리 조회완료", boardCategory).build();
+    }
 }

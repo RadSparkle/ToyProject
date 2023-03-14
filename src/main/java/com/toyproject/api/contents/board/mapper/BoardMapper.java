@@ -39,4 +39,6 @@ public interface BoardMapper {
     void insertCmt(BoardDto.boardCmt boardCmt);
 
     List<BoardDto.boardCmt> getCmt(int pid, int bid);
+
+    List<BoardDto.boardCategory> getCategory();
 }

@@ -157,4 +157,25 @@
         WHERE bid = #{bid}
          AND pid = #{pid}
     </select>
+
+    <select id="getCategory" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardCategory">
+        SELECT bid AS bid
+            , CASE
+                WHEN b_type = 'P'
+                THEN '일반'
+                WHEN b_type = 'A'
+                THEN '운영자'
+                ELSE '선택안됨'
+                END AS bType
+            , board_name AS boardName
+            , board_link AS boardLink
+            , CASE
+                WHEN category = 'G'
+                THEN '자유'
+                WHEN category = 'S'
+                THEN '스포츠'
+                ELSE '선택안됨'
+            END AS category
+        FROM toy_cont.board_group
+    </select>
 </mapper>
