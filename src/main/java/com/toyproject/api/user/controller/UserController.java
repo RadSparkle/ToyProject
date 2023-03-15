@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -30,19 +31,18 @@ import static org.springframework.http.HttpStatus.OK;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
-
-    private static JwtProvider jwtProvider;
 
     @ApiOperation("마이페이지 조회")
     @GetMapping("/getMyPage")
     @CrossOrigin("*")
     public ResponseEntity<Object> getMyPage(HttpServletResponse response, HttpServletRequest request,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
-        int uid = jwtProvider.getUid(accessToken);
+        JwtProvider jwt = new JwtProvider();
+        int uid = jwt.getUid(accessToken);
 
         HashMap userVo = (HashMap) userService.getMyPage(uid);
-
 
         return DefaultResponse.from(OK.value(),"마이페이지 조회 성공", userVo).build();
     }
@@ -53,7 +53,8 @@ public class UserController {
     public ResponseEntity<Object> following(HttpServletRequest request, HttpServletResponse response,
                                             @PathVariable int fid,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
-        int uid = jwtProvider.getUid(accessToken);
+        JwtProvider jwt = new JwtProvider();
+        int uid = jwt.getUid(accessToken);
 
         userService.insertFollow(uid, fid);
 
