@@ -35,8 +35,7 @@ public class UserController {
     private final UserService userService;
 
     @ApiOperation("마이페이지 조회")
-    @GetMapping("/getMyPage")
-    @CrossOrigin("*")
+    @GetMapping("/myPage")
     public ResponseEntity<Object> getMyPage(HttpServletResponse response, HttpServletRequest request,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
         JwtProvider jwt = new JwtProvider();
