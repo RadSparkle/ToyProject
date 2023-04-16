@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
+<configuration>
 
-    <!-- Appenders -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <Pattern>%d %5p [%c] %m%n</Pattern>
-        </encoder>
-    </appender>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
 
-    <appender name="console-infolog" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <Pattern>%d %5p %m%n</Pattern>
-        </encoder>
-    </appender>
+    <!-- log4jdbc 옵션 설정 -->
+    <logger name="jdbc" level="OFF"/>
+    <!-- 커넥션 open close 이벤트를 로그로 남긴다. -->
+    <logger name="jdbc.connection" level="OFF"/>
+    <!-- SQL문만을 로그로 남기며, PreparedStatement일 경우 관련된 argument 값으로 대체된 SQL문이 보여진다. -->
+    <logger name="jdbc.sqlonly" level="INFO" appender-ref="console-infolog"/>
+    <!-- SQL문과 해당 SQL을 실행시키는데 수행된 시간 정보(milliseconds)를 포함한다. -->
+    <logger name="jdbc.sqltiming" level="INFO"/>
+    <!-- SQL 결과 조회된 데이터의 table을 로그로 남긴다. -->
+    <logger name="jdbc.resultsettable" level="INFO" appender-ref="console"/>
 
-    <!-- Logger -->
-    <logger name="com.study" level="DEBUG" appender-ref="console" />
-    <logger name="jdbc.sqlonly" level="INFO" appender-ref="console-infolog" />
-    <logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog" />
-
-    <!-- Root Logger -->
-    <root level="off">
-        <appender-ref ref="console" />
+    <root level="INFO"> <!-- DEBUG -->
+        <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
