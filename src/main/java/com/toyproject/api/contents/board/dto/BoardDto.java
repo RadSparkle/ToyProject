@@ -4,6 +4,9 @@ package com.toyproject.api.contents.board.dto;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.persistence.*;
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.List;
 
 public class BoardDto {
@@ -79,5 +82,29 @@ public class BoardDto {
         private String boardLink;
 
         private String category;
+    }
+
+    @Data
+    @Entity
+    @IdClass(BoardDto.boardComments.class)
+    @Table(name="comments")
+    public static class boardComments implements Serializable{
+        @Id
+        @Column(name="cid")
+        private int cid;
+        @Id
+        @Column(name="bid")
+        private int bid;
+        @Id
+        @Column(name="pid")
+        private int pid;
+        @Column(name="uid")
+        private int uid;
+        @Column(name="contents")
+        private String contents;
+        @Column(name="reg_dt")
+        private String regDt;
+        @Column(name="mod_dt")
+        private String modDt;
     }
 }

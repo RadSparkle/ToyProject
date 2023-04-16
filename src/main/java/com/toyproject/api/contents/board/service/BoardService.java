@@ -5,6 +5,7 @@ import com.toyproject.api.contents.board.dto.BoardDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public interface BoardService {
@@ -26,7 +27,7 @@ public interface BoardService {
 
     void insertCmt(BoardDto.boardCmt boardCmt);
 
-    HashMap getCmt(int pid, int bid);
+    List getCmt(int pid, int bid);
 
     HashMap getCategory();
 }

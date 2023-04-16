@@ -2,20 +2,22 @@ package com.toyproject.api.contents.board.service.impl;
 
 import com.toyproject.api.contents.board.dto.BoardDto;
 import com.toyproject.api.contents.board.mapper.BoardMapper;
+import com.toyproject.api.contents.board.repository.BoardRepository;
 import com.toyproject.api.contents.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private BoardMapper boardMapper;
+
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Override
     public HashMap getBoardList(int bid) {
@@ -77,12 +79,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public HashMap getCmt(int pid, int bid) {
-        HashMap cmtMap = new HashMap();
-        List<BoardDto.boardCmt> cmtList = boardMapper.getCmt(pid, bid);
-        cmtMap.put("commentList",cmtList);
-
-        return cmtMap;
+    public List getCmt(int pid, int bid) {
+//        HashMap cmtMap = new HashMap();
+//        List<BoardDto.boardCmt> cmtList = boardMapper.getCmt(pid, bid);
+//        cmtMap.put("commentList",cmtList);
+        List comments = boardRepository.findAllByPidAndBid(pid, bid);
+        return comments;
     }
 
     @Override
@@ -93,6 +95,4 @@ public class BoardServiceImpl implements BoardService {
 
         return hm;
     }
-
-
 }

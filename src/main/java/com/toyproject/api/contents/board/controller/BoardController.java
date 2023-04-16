@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -126,8 +127,7 @@ public class BoardController {
     @ApiOperation("댓글리스트 가져오기")
     @GetMapping("/boards/{bid}/comments/{pid}")
     public ResponseEntity<Object> getComments(@PathVariable int pid, @PathVariable int bid) {
-        HashMap boardCmtList = boardService.getCmt(pid, bid);
-
+        List boardCmtList = boardService.getCmt(pid, bid);
         return DefaultResponse.from(OK.value(), "댓글 리스트 조회완료", boardCmtList).build();
     }
 
