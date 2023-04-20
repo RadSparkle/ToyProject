@@ -20,10 +20,10 @@ public class BoardServiceImpl implements BoardService {
     private BoardRepository boardRepository;
 
     @Override
-    public HashMap getBoardList(int bid) {
+    public HashMap findPost(int bid) {
         HashMap boardMap = new HashMap();
 
-        List<BoardDto.boardList> boardList = boardMapper.getBoardList(bid);
+        List<BoardDto.boardList> boardList = boardMapper.selectPost(bid);
         HashMap boardCount = boardMapper.getBoardCount(bid);
 
         boardMap.put("boardList",boardList);
@@ -33,53 +33,51 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertBoard(BoardDto.boardInfo boardDto) {
-        boardMapper.insertBoard(boardDto);
-        boardMapper.insertBoardInfo(boardDto);
+    public void addPost(BoardDto.boardInfo boardDto) {
+        boardMapper.insertPost(boardDto);
+        boardMapper.insertPostInfo(boardDto);
     }
 
     @Override
-    public BoardDto.boardInfo getBoardInfo(int pid, int bid) {
-        return boardMapper.getBoardInfo(pid, bid);
+    public BoardDto.boardInfo findPostInfo(int pid, int bid) {
+        return boardMapper.selectPostInfo(pid, bid);
     }
 
     @Override
-    public void deleteBoardInfo(BoardDto.boardList boardInfo) {
-        System.out.println(boardInfo);
-        boardMapper.deleteBoard(boardInfo);
-        boardMapper.deleteBoardInfo(boardInfo);
+    public void removePost(BoardDto.boardList boardInfo) {
+        boardMapper.deletePost(boardInfo);
+        boardMapper.deletePostInfo(boardInfo);
     }
 
     @Override
-    public void insertLike(BoardDto.boardLike boardInfo) {
-        System.out.println(boardInfo);
+    public void addLike(BoardDto.boardLike boardInfo) {
         boardMapper.insertLike(boardInfo);
     }
 
     @Override
-    public void insertUnlike(BoardDto.boardLike boardInfo) {
+    public void addUnlike(BoardDto.boardLike boardInfo) {
         boardMapper.insertUnlike(boardInfo);
     }
 
     @Override
-    public void updateBoard(BoardDto.boardInfo boardInfo) {
-        boardMapper.updateBoard(boardInfo);
-        boardMapper.updateBoardInfo(boardInfo);
+    public void modifyPost(BoardDto.boardInfo boardInfo) {
+        boardMapper.updatePost(boardInfo);
+        boardMapper.updatePostInfo(boardInfo);
     }
 
     @Override
-    public void deleteBoardInfoMulti(BoardDto.boardList boardInfo) {
-        boardMapper.deleteBoardMulti(boardInfo);
-        boardMapper.deleteBoardInfoMulti(boardInfo);
+    public void removePostMultiple(BoardDto.boardList boardInfo) {
+        boardMapper.deletePostMultiple(boardInfo);
+        boardMapper.deletePostInfoMultiple(boardInfo);
     }
 
     @Override
-    public void insertCmt(BoardDto.boardCmt boardCmt) {
-        boardMapper.insertCmt(boardCmt);
+    public void addComment(BoardDto.boardCmt boardCmt) {
+        boardMapper.insertComment(boardCmt);
     }
 
     @Override
-    public List getCmt(int pid, int bid) {
+    public List findComment(int pid, int bid) {
 //        HashMap cmtMap = new HashMap();
 //        List<BoardDto.boardCmt> cmtList = boardMapper.getCmt(pid, bid);
 //        cmtMap.put("commentList",cmtList);
@@ -88,9 +86,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public HashMap getCategory() {
+    public HashMap findCategory() {
         HashMap hm = new HashMap();
-        List<BoardDto.boardCategory> category = boardMapper.getCategory();
+        List<BoardDto.boardCategory> category = boardMapper.selectCategory();
         hm.put("category",category);
 
         return hm;

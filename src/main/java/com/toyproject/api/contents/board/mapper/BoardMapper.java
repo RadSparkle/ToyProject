@@ -10,35 +10,35 @@ import java.util.Optional;
 
 @Mapper
 public interface BoardMapper {
-    List<BoardDto.boardList> getBoardList(int bid);
+    List<BoardDto.boardList> selectPost(int bid);
 
     HashMap getBoardCount(int bid);
 
-    BoardDto.boardInfo getBoardInfo(int pid, int bid);
+    BoardDto.boardInfo selectPostInfo(int pid, int bid);
 
-    void insertBoardInfo(BoardDto.boardInfo boardDto);
+    void insertPostInfo(BoardDto.boardInfo boardDto);
 
-    void insertBoard(BoardDto.boardInfo boardDto);
+    void insertPost(BoardDto.boardInfo boardDto);
 
-    void deleteBoard(BoardDto.boardList boardInfo);
+    void deletePost(BoardDto.boardList boardInfo);
 
-    void deleteBoardInfo(BoardDto.boardList boardInfo);
+    void deletePostInfo(BoardDto.boardList boardInfo);
 
     void insertLike(BoardDto.boardLike boardInfo);
 
     void insertUnlike(BoardDto.boardLike boardInfo);
 
-    void updateBoard(BoardDto.boardInfo boardInfo);
+    void updatePost(BoardDto.boardInfo boardInfo);
 
-    void updateBoardInfo(BoardDto.boardInfo boardInfo);
+    void updatePostInfo(BoardDto.boardInfo boardInfo);
 
-    void deleteBoardMulti(BoardDto.boardList boardInfo);
+    void deletePostMultiple(BoardDto.boardList boardInfo);
 
-    void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
+    void deletePostInfoMultiple(BoardDto.boardList boardInfo);
 
-    void insertCmt(BoardDto.boardCmt boardCmt);
+    void insertComment(BoardDto.boardCmt boardCmt);
 
-    List<BoardDto.boardCmt> getCmt(int pid, int bid);
+    List<BoardDto.boardCmt> selectComment(int pid, int bid);
 
-    List<BoardDto.boardCategory> getCategory();
+    List<BoardDto.boardCategory> selectCategory();
 }

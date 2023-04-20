@@ -9,25 +9,25 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardService {
-    HashMap getBoardList(int bid);
+    HashMap findPost(int bid);
 
-    void insertBoard(BoardDto.boardInfo boardDto);
+    void addPost(BoardDto.boardInfo boardDto);
 
-    BoardDto.boardInfo getBoardInfo(int pid, int bid);
+    BoardDto.boardInfo findPostInfo(int pid, int bid);
 
-    void deleteBoardInfo(BoardDto.boardList boardInfo);
+    void removePost(BoardDto.boardList boardInfo);
 
-    void insertLike(BoardDto.boardLike boardInfo);
+    void addLike(BoardDto.boardLike boardInfo);
 
-    void insertUnlike(BoardDto.boardLike boardInfo);
+    void addUnlike(BoardDto.boardLike boardInfo);
 
-    void updateBoard(BoardDto.boardInfo boardInfo);
+    void modifyPost(BoardDto.boardInfo boardInfo);
 
-    void deleteBoardInfoMulti(BoardDto.boardList boardInfo);
+    void removePostMultiple(BoardDto.boardList boardInfo);
 
-    void insertCmt(BoardDto.boardCmt boardCmt);
+    void addComment(BoardDto.boardCmt boardCmt);
 
-    List getCmt(int pid, int bid);
+    List findComment(int pid, int bid);
 
-    HashMap getCategory();
+    HashMap findCategory();
 }

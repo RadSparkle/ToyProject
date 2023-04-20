@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.toyproject.api.contents.board.mapper.BoardMapper">
-   <select id="getBoardList" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+   <select id="selectPost" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardList" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
        SELECT a.bid AS bid
             , a.pid AS pid
             , a.title AS title
@@ -30,7 +30,7 @@
           AND is_use = 1
     </select>
 
-    <insert id="insertBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+    <insert id="insertPostInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
         <selectKey keyProperty="pid" resultType="Integer" order="BEFORE">
             SELECT IFNULL(MAX(pid)+1, 1) AS pid
             FROM toy_cont.board_info WHERE bid = #{bid}
@@ -39,7 +39,7 @@
         VALUES (#{bid}, #{uid}, #{nickname}, #{bLink}, #{imgLink}, #{isNotice}, #{isUse}, #{pid}, #{title}, #{contents})
     </insert>
 
-    <insert id="insertBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+    <insert id="insertPost" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
             <selectKey keyProperty="pid" resultType="Integer" order="BEFORE">
                 SELECT IFNULL(MAX(pid)+1,1) AS pid
                 FROM toy_cont.board WHERE bid = #{bid}
@@ -48,7 +48,7 @@
         VALUES (#{bid}, #{title}, #{uid}, #{pid})
     </insert>
 
-    <select id="getBoardInfo" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+    <select id="selectPostInfo" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
         SELECT a.pid AS pid
              , a.bid AS bid
              , a.uid AS uid
@@ -69,7 +69,7 @@
           AND a.is_use = 1
     </select>
 
-    <update id="deleteBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+    <update id="deletePostMultiple" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
             UPDATE toy_cont.board
             SET is_use = 0
             WHERE bid = #{bid}
@@ -77,7 +77,7 @@
             AND uid = #{uid}
     </update>
 
-    <update id="deleteBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
+    <update id="deletePostInfoMultiple" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardList">
             UPDATE toy_cont.board_info
             SET is_use = 0
             WHERE bid = #{bid}
@@ -117,7 +117,7 @@
           AND bid = #{bid}
     </delete>
 
-    <update id="updateBoard" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+    <update id="updatePost" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
         UPDATE toy_cont.board
         SET title = #{title}
           , mod_dt = now()
@@ -126,7 +126,7 @@
           AND uid = #{uid}
     </update>
 
-    <update id="updateBoardInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
+    <update id="updatePostInfo" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardInfo">
         UPDATE toy_cont.board_info
         SET title = #{title}
           , contents = #{contents}
@@ -136,7 +136,7 @@
           AND uid = #{uid}
     </update>
 
-    <insert id="insertCmt" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
+    <insert id="insertComment" parameterType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
         <selectKey keyProperty="cid" resultType="Integer" order="BEFORE">
             SELECT IFNULL(MAX(cid)+1,1) AS cid
             FROM toy_cont.comments WHERE bid = #{bid} AND pid = #{pid}
@@ -145,7 +145,7 @@
         VALUES (#{cid}, #{uid}, #{bid}, #{pid}, #{contents})
     </insert>
 
-    <select id="getCmt" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
+    <select id="selectComment" parameterType="Integer" resultType="com.toyproject.api.contents.board.dto.BoardDto$boardCmt">
         SELECT cid AS cid
             , uid AS uid
             , bid AS bid
