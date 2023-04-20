@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    UserDto.myPageInfo getMyPage(int uid);
+    UserDto.myPageInfo selectMyPage(int uid);
 
-    List getMyBoardList(int uid);
+    List selectMyBoardList(int uid);
 
     void insertFollow(int uid, int fid);
 }

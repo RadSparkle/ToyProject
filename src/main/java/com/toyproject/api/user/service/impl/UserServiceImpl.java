@@ -16,11 +16,11 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public HashMap getMyPage(int uid) {
+    public HashMap findMyPage(int uid) {
         HashMap hm = new HashMap();
 
-        UserDto.myPageInfo mypageInfo = userMapper.getMyPage(uid);
-        List boardList = userMapper.getMyBoardList(uid);
+        UserDto.myPageInfo mypageInfo = userMapper.selectMyPage(uid);
+        List boardList = userMapper.selectMyBoardList(uid);
 
         hm.put("myInfo",mypageInfo);
         hm.put("myBoardList",boardList);
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insertFollow(int uid, int fid) {
+    public void addFollow(int uid, int fid) {
         userMapper.insertFollow(uid, fid);
     }
 }

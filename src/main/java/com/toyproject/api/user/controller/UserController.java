@@ -36,12 +36,12 @@ public class UserController {
 
     @ApiOperation("마이페이지 조회")
     @GetMapping("/myPage")
-    public ResponseEntity<Object> getMyPage(HttpServletResponse response, HttpServletRequest request,
+    public ResponseEntity<Object> myPage(HttpServletResponse response, HttpServletRequest request,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
         JwtProvider jwt = new JwtProvider();
         int uid = jwt.getUid(accessToken);
 
-        HashMap userVo = (HashMap) userService.getMyPage(uid);
+        HashMap userVo = (HashMap) userService.findMyPage(uid);
 
         return DefaultResponse.from(OK.value(),"마이페이지 조회 성공", userVo).build();
     }
@@ -49,13 +49,13 @@ public class UserController {
     @ApiOperation("팔로우 하기")
     @PostMapping("/follow/{fid}")
     @CrossOrigin("*")
-    public ResponseEntity<Object> following(HttpServletRequest request, HttpServletResponse response,
+    public ResponseEntity<Object> followAdd(HttpServletRequest request, HttpServletResponse response,
                                             @PathVariable int fid,
                                             @RequestHeader(name = "Authorization") String accessToken) throws Exception {
         JwtProvider jwt = new JwtProvider();
         int uid = jwt.getUid(accessToken);
 
-        userService.insertFollow(uid, fid);
+        userService.addFollow(uid, fid);
 
         return DefaultResponse.from(OK.value(), "팔로잉 성공", fid).build();
     }

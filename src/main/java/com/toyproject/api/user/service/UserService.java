@@ -2,7 +2,7 @@ package com.toyproject.api.user.service;
 
 
 public interface UserService {
-    Object getMyPage(int uid);
+    Object findMyPage(int uid);
 
-    void insertFollow(int uid, int fid);
+    void addFollow(int uid, int fid);
 }
