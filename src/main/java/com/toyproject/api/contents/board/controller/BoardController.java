@@ -29,8 +29,8 @@ public class BoardController {
     private BoardService boardService;
 
     @ApiOperation("게시글 리스트 조회")
-    @GetMapping("/boards/{bid}/posts")
-    public ResponseEntity<Object> getBoardPost(@PathVariable int bid) {
+    @GetMapping("/boards/{bid}")
+    public ResponseEntity<Object> postList(@PathVariable int bid) {
         HashMap boardList = boardService.getBoardList(bid);
 
         return DefaultResponse.from(OK.value(),"게시글 리스트 조회 성공", boardList).build();
@@ -39,7 +39,7 @@ public class BoardController {
     @ApiOperation("게시글 등록")
     @Transactional
     @PostMapping("/boards")
-    public ResponseEntity<Object> createBoard(@RequestBody BoardDto.boardInfo boardDto) {
+    public ResponseEntity<Object> postAdd(@RequestBody BoardDto.boardInfo boardDto) {
         boardService.insertBoard(boardDto);
 
         return DefaultResponse.from(CREATED.value(),"게시글 생성 성공", boardDto).build();
@@ -48,15 +48,15 @@ public class BoardController {
     @ApiOperation("게시글 수정")
     @Transactional
     @PutMapping("/boards")
-    public ResponseEntity<Object> updateBoard(@RequestBody BoardDto.boardInfo boardInfo) {
+    public ResponseEntity<Object> postModify(@RequestBody BoardDto.boardInfo boardInfo) {
         boardService.updateBoard(boardInfo);
 
         return DefaultResponse.from(OK.value(),"게시글 수정 성공", boardInfo).build();
     }
 
     @ApiOperation("게시글 상세페이지 조회")
-    @GetMapping("/getBoard/{bid}/{pid}")
-    public ResponseEntity<Object> getBoardInfo(@PathVariable int pid
+    @GetMapping("/boards/{bid}/{pid}")
+    public ResponseEntity<Object> postDetails(@PathVariable int pid
             , @PathVariable int bid) {
         BoardDto.boardInfo boardInfo = boardService.getBoardInfo(pid, bid);
 
@@ -69,7 +69,7 @@ public class BoardController {
 
     @ApiOperation("게시글 삭제")
     @DeleteMapping("/boards")
-    public ResponseEntity<Object> deleteBoard(@RequestBody BoardDto.boardList boardInfo) {
+    public ResponseEntity<Object> postRemove(@RequestBody BoardDto.boardList boardInfo) {
         //게시글 단일 삭제
         if(boardInfo.getPidList() == null) {
             boardService.deleteBoardInfo(boardInfo);
@@ -77,14 +77,14 @@ public class BoardController {
 
         //게시글 다중 삭제
         if(boardInfo.getPid() == 0) {
-            deleteBoardMulti(boardInfo);
+            postRemoveMultiple(boardInfo);
         }
 
         return DefaultResponse.from(OK.value(),"게시글 삭제 성공", boardInfo).build();
     }
 
     @ApiOperation("게시글 다중삭제 객체")
-    public ResponseEntity<Object> deleteBoardMulti(@RequestBody BoardDto.boardList boardInfo) {
+    public ResponseEntity<Object> postRemoveMultiple(@RequestBody BoardDto.boardList boardInfo) {
         boardService.deleteBoardInfoMulti(boardInfo);
 
         return DefaultResponse.from(OK.value(),"게시글 다중 삭제 성공", boardInfo).build();
@@ -92,7 +92,7 @@ public class BoardController {
 
     @ApiOperation("게시글 추천버튼")
     @PostMapping("/likes")
-    public ResponseEntity<Object> likeBoard(@RequestBody BoardDto.boardLike boardInfo) {
+    public ResponseEntity<Object> postLike(@RequestBody BoardDto.boardLike boardInfo) {
         int likeType = boardInfo.getLikeType();
 
         try {
@@ -115,7 +115,7 @@ public class BoardController {
 
     @ApiOperation("댓글등록")
     @PostMapping("/comments")
-    public ResponseEntity<Object> createComment(@RequestBody BoardDto.boardCmt boardCmt) {
+    public ResponseEntity<Object> commentAdd(@RequestBody BoardDto.boardCmt boardCmt) {
         try {
             boardService.insertCmt(boardCmt);
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class BoardController {
 
     @ApiOperation("댓글리스트 가져오기")
     @GetMapping("/boards/{bid}/comments/{pid}")
-    public ResponseEntity<Object> getComments(@PathVariable int pid, @PathVariable int bid) {
+    public ResponseEntity<Object> commentList(@PathVariable int pid, @PathVariable int bid) {
         List boardCmtList = boardService.getCmt(pid, bid);
         return DefaultResponse.from(OK.value(), "댓글 리스트 조회완료", boardCmtList).build();
     }
@@ -137,7 +137,7 @@ public class BoardController {
 
     @ApiOperation("전체 게시판 카테고리 조회")
     @GetMapping("/categories")
-    public ResponseEntity<Object> getAllCategories() {
+    public ResponseEntity<Object> categoryList() {
         HashMap boardCategory = boardService.getCategory();
         System.out.println(boardCategory);
         return DefaultResponse.from(OK.value(), "전체 카테고리 조회완료", boardCategory).build();
