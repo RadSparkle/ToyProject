@@ -5,9 +5,9 @@ import com.toyproject.api.common.model.auth.TokenVo;
 import com.toyproject.util.jwt.JwtPayLoad;
 
 public interface AuthService {
-    void insertUser(AuthDto.signUp user);
+    void userAdd(AuthDto.signUp user);
 
-    AuthDto.signIn getUser(AuthDto.signIn user);
+    AuthDto.signIn userDetails(AuthDto.signIn user);
 
     TokenVo getToken(JwtPayLoad build);
 }

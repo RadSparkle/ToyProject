@@ -21,13 +21,13 @@ public class AuthServiceImpl implements AuthService {
     private AuthMapper authMapper;
 
     @Override
-    public void insertUser(AuthDto.signUp user) {
+    public void userAdd(AuthDto.signUp user) {
        authMapper.insertUser(user);
     }
 
     @Override
-    public AuthDto.signIn getUser(AuthDto.signIn user) {
-        return authMapper.getUser(user);
+    public AuthDto.signIn userDetails(AuthDto.signIn user) {
+        return authMapper.selectUser(user);
     }
 
     @Override

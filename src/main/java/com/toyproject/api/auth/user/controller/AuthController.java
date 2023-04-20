@@ -32,7 +32,7 @@ public class AuthController {
     private AuthService authService;
 
     @ApiOperation("회원가입")
-    @PostMapping("/users/signup")
+    @PostMapping("/users/signUp")
     @CrossOrigin("*")
     public ResponseEntity<Object> signUp (@RequestBody AuthDto.signUp user) {
         //입력한 비밀번호 암호화
@@ -40,7 +40,7 @@ public class AuthController {
         user.setPwd(encryPwd);
 
         try {
-            authService.insertUser(user);
+            authService.userAdd(user);
 
         } catch (DuplicateKeyException e) {
             return DefaultResponse.from(BAD_REQUEST.value(), "이메일 또는 닉네임 중복", user).build();
@@ -64,7 +64,7 @@ public class AuthController {
         String encryPwd = DigestUtils.sha256Hex(user.getPwd());
         user.setPwd(encryPwd);
 
-        AuthDto.signIn userInfo = authService.getUser(user);
+        AuthDto.signIn userInfo = authService.userDetails(user);
         TokenVo token = authService.getToken(JwtPayLoad.builder()
                 .uid(userInfo.getUid())
                 .userId(userInfo.getUserId())
@@ -95,7 +95,7 @@ public class AuthController {
     @ApiOperation("회원 정보 조회")
     @GetMapping("/getUserInfo")
     @CrossOrigin("*")
-    public void getUserInfo(@RequestHeader(name = "Authorization") String accessToken) throws Exception {
+    public void userInfo(@RequestHeader(name = "Authorization") String accessToken) throws Exception {
 //        AuthDto.signIn userInfo = authService.getUserInfo(uid);
 //
 //        if(userInfo == null) {
