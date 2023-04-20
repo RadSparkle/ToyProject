@@ -5,3 +5,8 @@
 ### CentOS 7
 ### Gradle
 ### MySql 8
+### JWT
+### JPA
+
+
+##
