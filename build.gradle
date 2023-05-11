@@ -1,8 +1,15 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
     id 'war'
     id 'org.springframework.boot' version '2.4.3'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'com.toyproject'
@@ -30,9 +37,15 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.6'
+    testImplementation 'com.querydsl:querydsl-jpa:5.0.0'
+    testImplementation 'com.querydsl:querydsl-apt:5.0.0'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.json:json:20200518'
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    //querydsl (http://honeymon.io/tech/2020/07/09/gradle-annotation-processor-with-querydsl.html)
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -43,6 +56,20 @@ dependencies {
     implementation 'org.springframework.security:spring-security-web:4.2.2.RELEASE'
     implementation 'org.springframework.security:spring-security-config:4.2.2.RELEASE'
     implementation 'com.auth0:java-jwt:3.19.2'
+}
+
+//querydsl
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
 }
 
 tasks.named('test') {
